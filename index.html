@@ -3,288 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ficha D&D BECMI</title>
+  <title>Ficha Completa D&D BECMI</title>
   <style>
     :root {
+      --primary: #8b0000;
       --bg: #f4efe6;
-      --paper: #fffdf9;
-      --ink: #1e1b18;
-      --accent: #8b1e1e;
-      --border: #3a322d;
+      --card: #fffdf9;
+      --border: #3b2f2f;
     }
-    * { box-sizing: border-box; font-family: 'Georgia', serif; }
     body {
-      background: var(--bg);
-      color: var(--ink);
-      margin: 0;
-      padding: 20px;
+      font-family: 'Georgia', serif;
+      background-color: var(--bg);
+      color: #1a1a1a;
+      max-width: 950px;
+      margin: 20px auto;
+      padding: 15px;
     }
-    .toolbar {
-      max-width: 900px;
-      margin: 0 auto 15px auto;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 8px 14px;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 4px;
-      font-family: sans-serif;
-      font-size: 0.85rem;
-    }
-    button:hover { opacity: 0.9; }
-    button.secondary { background: #4a423d; }
-
     .sheet {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--paper);
+      background: var(--card);
       border: 3px solid var(--border);
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      padding: 20px;
+      box-shadow: 5px 5px 0px rgba(0,0,0,0.15);
     }
     header {
-      text-align: center;
-      border-bottom: 3px double var(--border);
+      border-bottom: 3px solid var(--primary);
       padding-bottom: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    header h1 {
+    h1 {
       margin: 0;
-      color: var(--accent);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-size: 1.8rem;
-    }
-    .grid { display: grid; gap: 15px; margin-bottom: 20px; }
-    .cols-4 { grid-template-columns: repeat(4, 1fr); }
-    .cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .cols-2 { grid-template-columns: 1fr 1fr; }
-    .cols-attr { grid-template-columns: 120px 1fr; }
-
-    .box {
-      border: 1.5px solid var(--border);
-      padding: 10px;
-      background: #fff;
-    }
-    .box h2 {
-      margin: -10px -10px 10px -10px;
-      background: var(--border);
-      color: #fff;
-      padding: 5px 10px;
-      font-size: 0.9rem;
+      color: var(--primary);
+      font-size: 1.6rem;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+    .controls button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      border-radius: 3px;
+    }
+    .controls button:hover { opacity: 0.9; }
+    
+    /* Abas */
+    .tabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 5px;
+    }
+    .tab-btn {
+      background: #e0d5c1;
+      border: 1px solid var(--border);
+      padding: 8px 15px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 0.9rem;
+      border-radius: 4px 4px 0 0;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    @media (max-width: 650px) { .two-col { grid-template-columns: 1fr; } }
+    .box {
+      border: 2px solid var(--border);
+      padding: 12px;
+      background: #faf6ee;
+      margin-bottom: 15px;
+    }
+    .box h2 {
+      margin: -12px -12px 10px -12px;
+      background: var(--border);
+      color: white;
+      font-size: 0.9rem;
+      padding: 5px 10px;
+      text-transform: uppercase;
+    }
     label {
       display: block;
-      font-size: 0.72rem;
-      text-transform: uppercase;
+      font-size: 0.75rem;
       font-weight: bold;
-      color: #555;
-      margin-bottom: 3px;
-      font-family: sans-serif;
+      text-transform: uppercase;
+      color: #444;
     }
     input[type="text"], input[type="number"], textarea {
       width: 100%;
-      border: none;
-      border-bottom: 1px solid #999;
-      background: transparent;
-      font-size: 1rem;
-      padding: 3px 2px;
-      color: var(--ink);
+      box-sizing: border-box;
+      border: 1px solid #aaa;
+      border-bottom: 2px solid var(--border);
+      background: white;
+      padding: 5px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-top: 2px;
     }
-    input:focus, textarea:focus {
-      outline: none;
-      border-bottom: 2px solid var(--accent);
-      background: #fdf8f0;
-    }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    th, td { border: 1px solid #ccc; padding: 5px; text-align: center; }
-    th { background: #eee6d8; font-size: 0.75rem; text-transform: uppercase; }
-    td input { border: none; text-align: center; }
-    td.left input { text-align: left; }
-
-    @media (max-width: 700px) {
-      .cols-4, .cols-3, .cols-2, .cols-attr { grid-template-columns: 1fr; }
-    }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+    th, td { border: 1px solid #ccc; padding: 5px; text-align: center; font-size: 0.85rem; }
+    th { background: #e8e0d0; }
+    td:first-child { text-align: left; font-weight: bold; }
+    .stat-input { width: 55px !important; text-align: center; font-weight: bold; }
+    textarea { min-height: 90px; resize: vertical; }
     @media print {
-      .toolbar { display: none; }
-      body { background: #fff; padding: 0; }
-      .sheet { box-shadow: none; border: 2px solid #000; }
+      .controls, .tabs { display: none; }
+      .tab-content { display: block !important; page-break-after: always; }
+      body { background: white; margin: 0; }
+      .sheet { box-shadow: none; border: 2px solid black; }
     }
   </style>
 </head>
 <body>
 
-  <div class="toolbar">
-    <button onclick="exportJSON()">💾 Baixar Backup (.json)</button>
-    <button class="secondary" onclick="document.getElementById('importFile').click()">📂 Carregar Backup</button>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
-    <button class="secondary" onclick="window.print()">🖨️ Imprimir / PDF</button>
-    <button class="secondary" onclick="clearSheet()">🗑️ Limpar</button>
+<div class="sheet">
+  <header>
+    <h1>D&D BECMI — Ficha de Personagem</h1>
+    <div class="controls">
+      <button onclick="exportarJSON()">Salvar (.json)</button>
+      <button onclick="document.getElementById('importar').click()">Carregar (.json)</button>
+      <button onclick="window.print()">Imprimir / PDF</button>
+      <input type="file" id="importar" style="display:none" accept=".json" onchange="importarJSON(event)">
+    </div>
+  </header>
+
+  <!-- Sistema de Abas -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="mudarAba(event, 'aba-principal')">1. Principal & Atributos</button>
+    <button class="tab-btn" onclick="mudarAba(event, 'aba-magias')">2. Magias & Feitiços</button>
+    <button class="tab-btn" onclick="mudarAba(event, 'aba-ladrao')">3. Habilidades de Ladrão</button>
+    <button class="tab-btn" onclick="mudarAba(event, 'aba-maestria')">4. Maestria & Notas</button>
   </div>
 
-  <div class="sheet" id="sheetForm">
-    <header>
-      <h1>Dungeons & Dragons — BECMI</h1>
-      <small>Ficha de Personagem Clássica (Salvamento Automático no Navegador)</small>
-    </header>
-
-    <!-- Cabeçalho do Personagem -->
-    <div class="grid cols-4">
-      <div class="box"><label>Nome do Personagem</label><input type="text" data-field="nome"></div>
-      <div class="box"><label>Classe</label><input type="text" data-field="classe"></div>
-      <div class="box"><label>Nível</label><input type="number" data-field="nivel" value="1"></div>
-      <div class="box"><label>Alinhamento</label><input type="text" data-field="alinhamento"></div>
+  <!-- ABA 1: PRINCIPAL -->
+  <div id="aba-principal" class="tab-content active">
+    <div class="grid">
+      <div><label>Nome</label><input type="text" id="nome"></div>
+      <div><label>Classe</label><input type="text" id="classe"></div>
+      <div><label>Nível</label><input type="number" id="nivel" value="1"></div>
+      <div><label>Alinhamento</label><input type="text" id="alinhamento"></div>
+      <div><label>Jogador</label><input type="text" id="jogador"></div>
+      <div><label>XP Atual</label><input type="number" id="xp" value="0"></div>
+      <div><label>Próx. Nível</label><input type="number" id="prox_xp"></div>
+      <div><label>Bônus XP (%)</label><input type="text" id="bonus_xp"></div>
     </div>
 
-    <div class="grid cols-4">
-      <div class="box"><label>Jogador</label><input type="text" data-field="jogador"></div>
-      <div class="box"><label>XP Atual</label><input type="number" data-field="xp_atual" value="0"></div>
-      <div class="box"><label>XP Próximo Nível</label><input type="number" data-field="xp_prox" value="2000"></div>
-      <div class="box"><label>Bônus XP (%)</label><input type="text" data-field="xp_bonus" value="+0%"></div>
-    </div>
-
-    <!-- Atributos e Combate -->
-    <div class="grid cols-2">
+    <div class="two-col">
       <div class="box">
         <h2>Atributos</h2>
         <table>
-          <thead>
-            <tr><th>Atributo</th><th>Valor</th><th>Mod.</th><th>Notas</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>FOR</strong></td><td><input type="number" data-field="for_val"></td><td><input type="text" data-field="for_mod"></td><td class="left"><input type="text" data-field="for_nota" placeholder="Abrir portas..."></td></tr>
-            <tr><td><strong>INT</strong></td><td><input type="number" data-field="int_val"></td><td><input type="text" data-field="int_mod"></td><td class="left"><input type="text" data-field="int_nota" placeholder="Idiomas..."></td></tr>
-            <tr><td><strong>SAB</strong></td><td><input type="number" data-field="sab_val"></td><td><input type="text" data-field="sab_mod"></td><td class="left"><input type="text" data-field="sab_nota" placeholder="Save Magia..."></td></tr>
-            <tr><td><strong>DES</strong></td><td><input type="number" data-field="des_val"></td><td><input type="text" data-field="des_mod"></td><td class="left"><input type="text" data-field="des_nota" placeholder="CA / Iniciativa"></td></tr>
-            <tr><td><strong>CON</strong></td><td><input type="number" data-field="con_val"></td><td><input type="text" data-field="con_mod"></td><td class="left"><input type="text" data-field="con_nota" placeholder="PV / Dado"></td></tr>
-            <tr><td><strong>CAR</strong></td><td><input type="number" data-field="car_val"></td><td><input type="text" data-field="car_mod"></td><td class="left"><input type="text" data-field="car_nota" placeholder="Reação / Moral"></td></tr>
-          </tbody>
+          <tr><th>Atrib.</th><th>Valor</th><th>Mod.</th><th>Efeitos</th></tr>
+          <tr><td>FOR</td><td><input type="number" class="stat-input" id="for"></td><td><input type="text" class="stat-input" id="for_m"></td><td><input type="text" id="for_n"></td></tr>
+          <tr><td>INT</td><td><input type="number" class="stat-input" id="int"></td><td><input type="text" class="stat-input" id="int_m"></td><td><input type="text" id="int_n"></td></tr>
+          <tr><td>SAB</td><td><input type="number" class="stat-input" id="sab"></td><td><input type="text" class="stat-input" id="sab_m"></td><td><input type="text" id="sab_n"></td></tr>
+          <tr><td>DES</td><td><input type="number" class="stat-input" id="des"></td><td><input type="text" class="stat-input" id="des_m"></td><td><input type="text" id="des_n"></td></tr>
+          <tr><td>CON</td><td><input type="number" class="stat-input" id="con"></td><td><input type="text" class="stat-input" id="con_m"></td><td><input type="text" id="con_n"></td></tr>
+          <tr><td>CAR</td><td><input type="number" class="stat-input" id="car"></td><td><input type="text" class="stat-input" id="car_m"></td><td><input type="text" id="car_n"></td></tr>
         </table>
       </div>
 
       <div class="box">
         <h2>Combate & Salvaguardas</h2>
-        <div class="grid cols-3" style="margin-bottom: 10px;">
-          <div><label>PV Atual / Máx</label><input type="text" data-field="pv" placeholder="8 / 8"></div>
-          <div><label>CA (Descendente)</label><input type="number" data-field="ca" value="9"></div>
-          <div><label>THAC0</label><input type="number" data-field="thaco" value="19"></div>
-        </div>
-        <div class="grid cols-2" style="margin-bottom: 10px;">
-          <div><label>Movimento (Turno)</label><input type="text" data-field="mov_turno" value="120' (40')"></div>
-          <div><label>Movimento (Combate)</label><input type="text" data-field="mov_combate" value="40' (13')"></div>
+        <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom:10px;">
+          <div><label>PV Atual</label><input type="number" id="pv_atual"></div>
+          <div><label>PV Máx</label><input type="number" id="pv_max"></div>
+          <div><label>CA</label><input type="number" id="ca" value="9"></div>
+          <div><label>THAC0</label><input type="number" id="thac0" value="19"></div>
+          <div><label>Mov. Turno</label><input type="text" id="mov_t" value="120'"></div>
+          <div><label>Mov. Combate</label><input type="text" id="mov_c" value="40'"></div>
         </div>
         <table>
-          <thead><tr><th colspan="2">Jogadas de Salvaguarda</th></tr></thead>
-          <tbody>
-            <tr><td style="text-align:left">Raio da Morte / Veneno</td><td width="70"><input type="number" data-field="save_morte"></td></tr>
-            <tr><td style="text-align:left">Varinhas Mágicas</td><td><input type="number" data-field="save_varinha"></td></tr>
-            <tr><td style="text-align:left">Paralisia / Petrificação</td><td><input type="number" data-field="save_paralisia"></td></tr>
-            <tr><td style="text-align:left">Sopro de Dragão</td><td><input type="number" data-field="save_sopro"></td></tr>
-            <tr><td style="text-align:left">Bastões, Cajados e Magias</td><td><input type="number" data-field="save_magia"></td></tr>
-          </tbody>
+          <tr><th>Jogada de Salvaguarda</th><th>Alvo</th></tr>
+          <tr><td>Raio da Morte / Veneno</td><td><input type="number" class="stat-input" id="sv_morte"></td></tr>
+          <tr><td>Varinhas Mágicas</td><td><input type="number" class="stat-input" id="sv_varinha"></td></tr>
+          <tr><td>Paralisia / Petrificação</td><td><input type="number" class="stat-input" id="sv_paralisia"></td></tr>
+          <tr><td>Sopro de Dragão</td><td><input type="number" class="stat-input" id="sv_sopro"></td></tr>
+          <tr><td>Bastões, Cajados e Magias</td><td><input type="number" class="stat-input" id="sv_magia"></td></tr>
         </table>
       </div>
     </div>
 
-    <!-- Armas -->
-    <div class="box" style="margin-bottom: 20px;">
+    <div class="box">
       <h2>Armas & Ataques</h2>
       <table>
-        <thead>
-          <tr><th>Arma</th><th>Bônus Ataque</th><th>Dano</th><th>Alcance</th><th>Observações</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="left"><input type="text" data-field="arma1_nome"></td><td><input type="text" data-field="arma1_atk"></td><td><input type="text" data-field="arma1_dano"></td><td><input type="text" data-field="arma1_alc"></td><td class="left"><input type="text" data-field="arma1_obs"></td></tr>
-          <tr><td class="left"><input type="text" data-field="arma2_nome"></td><td><input type="text" data-field="arma2_atk"></td><td><input type="text" data-field="arma2_dano"></td><td><input type="text" data-field="arma2_alc"></td><td class="left"><input type="text" data-field="arma2_obs"></td></tr>
-          <tr><td class="left"><input type="text" data-field="arma3_nome"></td><td><input type="text" data-field="arma3_atk"></td><td><input type="text" data-field="arma3_dano"></td><td><input type="text" data-field="arma3_alc"></td><td class="left"><input type="text" data-field="arma3_obs"></td></tr>
-        </tbody>
+        <tr><th>Arma</th><th>Bônus Ataque</th><th>Dano</th><th>Alcance</th><th>Notas</th></tr>
+        <tr><td><input type="text" id="w1"></td><td><input type="text" id="w1_b"></td><td><input type="text" id="w1_d"></td><td><input type="text" id="w1_a"></td><td><input type="text" id="w1_n"></td></tr>
+        <tr><td><input type="text" id="w2"></td><td><input type="text" id="w2_b"></td><td><input type="text" id="w2_d"></td><td><input type="text" id="w2_a"></td><td><input type="text" id="w2_n"></td></tr>
       </table>
     </div>
 
-    <!-- Equipamento e Habilidades -->
-    <div class="grid cols-2">
+    <div class="two-col">
       <div class="box">
-        <h2>Equipamento & Carga (cn)</h2>
-        <textarea rows="8" data-field="equipamento" placeholder="Ex: Cota de Malha (400 cn), Espada Longa (60 cn)..."></textarea>
-        <div class="grid cols-2" style="margin-top: 10px; margin-bottom: 0;">
-          <div><label>Carga Total (cn)</label><input type="text" data-field="carga_total"></div>
-          <div><label>Moedas (PL / PO / PE / PP / PC)</label><input type="text" data-field="moedas" placeholder="0 / 25 / 0 / 10 / 0"></div>
+        <h2>Equipamento & Tesouro (cn)</h2>
+        <textarea id="equipamento" placeholder="Ex: Cota de Malha (400 cn)..."></textarea>
+        <div class="grid" style="grid-template-columns: repeat(5, 1fr); margin-top:8px;">
+          <div><label>PL</label><input type="number" id="pl" value="0"></div>
+          <div><label>PO</label><input type="number" id="po" value="0"></div>
+          <div><label>PE</label><input type="number" id="pe" value="0"></div>
+          <div><label>PP</label><input type="number" id="pp" value="0"></div>
+          <div><label>PC</label><input type="number" id="pc" value="0"></div>
         </div>
       </div>
-
       <div class="box">
-        <h2>Habilidades, Magias & Notas</h2>
-        <textarea rows="10" data-field="habilidades" placeholder="Idiomas, habilidades de classe, magias memorizadas e histórico..."></textarea>
+        <h2>Idiomas & Notas Iniciais</h2>
+        <textarea id="notas_gerais" placeholder="Idiomas conhecidos, divindade patronal, montaria..."></textarea>
       </div>
     </div>
   </div>
 
-  <script>
-    const STORAGE_KEY = 'dnd_becmi_sheet_v1';
-    const fields = document.querySelectorAll('[data-field]');
+  <!-- ABA 2: MAGIAS -->
+  <div id="aba-magias" class="tab-content">
+    <div class="box">
+      <h2>Grimório & Magias Memorizadas / Por Dia</h2>
+      <div class="grid" style="grid-template-columns: repeat(6, 1fr); margin-bottom:10px;">
+        <div><label>Nível 1</label><input type="text" id="m_slot1" placeholder="Ex: 1/1"></div>
+        <div><label>Nível 2</label><input type="text" id="m_slot2" placeholder="-"></div>
+        <div><label>Nível 3</label><input type="text" id="m_slot3" placeholder="-"></div>
+        <div><label>Nível 4</label><input type="text" id="m_slot4" placeholder="-"></div>
+        <div><label>Nível 5</label><input type="text" id="m_slot5" placeholder="-"></div>
+        <div><label>Nível 6</label><input type="text" id="m_slot6" placeholder="-"></div>
+      </div>
+      <label>Lista de Magias Conhecidas e Descrição</label>
+      <textarea id="lista_magias" style="min-height: 250px;" placeholder="Ex: 
+- 1º Nível: Mísseis Mágicos, Leitura de Magias
+- 2º Nível: Invisibilidade..."></textarea>
+    </div>
+  </div>
 
-    // Carregar dados salvos ao abrir
-    function loadSheet() {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      fields.forEach(el => {
-        if (saved[el.dataset.field] !== undefined) {
-          el.value = saved[el.dataset.field];
+  <!-- ABA 3: HABILIDADES DE LADRÃO -->
+  <div id="aba-ladrao" class="tab-content">
+    <div class="box">
+      <h2>Habilidades de Ladrão (Chances em d100)</h2>
+      <p style="font-size: 0.8rem; color: #555; margin-top:0;">Preencha conforme o nível do seu Ladrão nas tabelas do BECMI.</p>
+      <table>
+        <tr><th>Habilidade</th><th>Chance (%)</th><th>Habilidade</th><th>Chance (%)</th></tr>
+        <tr><td>Abrir Fechaduras (OL)</td><td><input type="number" class="stat-input" id="th_ol"></td><td>Mover-se em Silêncio (MS)</td><td><input type="number" class="stat-input" id="th_ms"></td></tr>
+        <tr><td>Encontrar/Remover Armadilhas (TR)</td><td><input type="number" class="stat-input" id="th_tr"></td><td>Esconder-se nas Sombras (HS)</td><td><input type="number" class="stat-input" id="th_hs"></td></tr>
+        <tr><td>Ouvir Ruídos (HN)</td><td><input type="number" class="stat-input" id="th_hn"></td><td>Ouvir/Ler Línguas (RL)</td><td><input type="number" class="stat-input" id="th_rl"></td></tr>
+        <tr><td>Escalar Paredes (CW)</td><td><input type="number" class="stat-input" id="th_cw"></td><td>Atacar pelas Costas (BS)</td><td><input type="text" id="th_bs" placeholder="Ex: x2 / +4"></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ABA 4: MAESTRIA & PROGRESSÃO -->
+  <div id="aba-maestria" class="tab-content">
+    <div class="two-col">
+      <div class="box">
+        <h2>Maestria de Armas (Master / RC)</h2>
+        <textarea id="maestria_armas" style="min-height: 150px;" placeholder="Descreva os níveis de maestria com armas (Não-Treinado, Treinado, Especialista, Mestre, Grão-Mestre), bônus de dano e manobras especiais."></textarea>
+      </div>
+      <div class="box">
+        <h2>Histórico de Progressão & Marcos</h2>
+        <textarea id="progresso_niveis" style="min-height: 150px;" placeholder="Anote marcos de campanha, tesouros notáveis encontrados, títulos de nobreza ou domínios conquistados..."></textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Script de Abas
+  function mudarAba(evt, idAba) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(idAba).classList.add('active');
+    evt.currentTarget.classList.add('active');
+  }
+
+  // Script de Salvamento Local e Manipulação de Campos
+  const campos = document.querySelectorAll('input, textarea');
+
+  window.onload = () => {
+    campos.forEach(campo => {
+      if (campo.id && localStorage.getItem('becmi_' + campo.id)) {
+        campo.value = localStorage.getItem('becmi_' + campo.id);
+      }
+      campo.addEventListener('input', () => {
+        if (campo.id) localStorage.setItem('becmi_' + campo.id, campo.value);
+      });
+    });
+  };
+
+  function exportarJSON() {
+    const dados = {};
+    campos.forEach(c => { if (c.id) dados[c.id] = c.value; });
+    const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (dados.nome || 'ficha-becmi') + '.json';
+    a.click();
+  }
+
+  function importarJSON(event) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dados = JSON.parse(e.target.result);
+      Object.keys(dados).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.value = dados[id];
+          localStorage.setItem('becmi_' + id, dados[id]);
         }
       });
-    }
-
-    // Salvar automaticamente ao digitar
-    function saveSheet() {
-      const data = {};
-      fields.forEach(el => data[el.dataset.field] = el.value);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-
-    fields.forEach(el => el.addEventListener('input', saveSheet));
-
-    // Exportar JSON
-    function exportJSON() {
-      saveSheet();
-      const data = localStorage.getItem(STORAGE_KEY);
-      const nome = document.querySelector('[data-field="nome"]').value || 'personagem-becmi';
-      const blob = new Blob([data], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${nome.toLowerCase().replace(/\s+/g, '-')}.json`;
-      a.click();
-    }
-
-    // Importar JSON
-    function importJSON(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => {
-        localStorage.setItem(STORAGE_KEY, e.target.result);
-        loadSheet();
-      };
-      reader.readAsText(file);
-    }
-
-    // Limpar Ficha
-    function clearSheet() {
-      if (confirm('Tem certeza que deseja apagar todos os campos da ficha?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        fields.forEach(el => el.value = '');
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', loadSheet);
-  </script>
+    };
+    reader.readAsText(event.target.files[0]);
+  }
+</script>
 </body>
 </html>
