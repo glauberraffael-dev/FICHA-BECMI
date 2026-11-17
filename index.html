@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ficha D&D BECMI - Multi-Classe</title>
+  <title>Ficha D&D BECMI - Definitiva</title>
   <style>
     :root {
       --primary: #8b0000;
@@ -136,9 +136,6 @@
     .stat-input { width: 50px !important; text-align: center; font-weight: bold; }
     textarea { min-height: 90px; resize: vertical; }
 
-    /* Controle de visibilidade por classe */
-    .secao-especifica { display: none; }
-    
     @media print {
       .controls, .tabs { display: none; }
       .tab-content { display: block !important; page-break-after: always; }
@@ -156,10 +153,10 @@
       <div>
         <label style="color:white; font-size:0.65rem;">Classe / Raça:</label>
         <select id="seletor-classe" onchange="mudarClasse()">
-          <option value="clerigo">Clérigo (Cleric)</option>
           <option value="guerreiro">Guerreiro (Fighter)</option>
-          <option value="mago">Mago (Magic-User)</option>
+          <option value="clerigo">Clérigo (Cleric)</option>
           <option value="ladrao">Ladrão (Thief)</option>
+          <option value="mago">Mago (Magic-User)</option>
           <option value="anao">Anão (Dwarf)</option>
           <option value="elfo">Elfo (Elf)</option>
           <option value="halfling">Halfling</option>
@@ -174,10 +171,11 @@
 
   <!-- Sistema de Abas -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="mudarAba(event, 'aba-principal')">1. Principal & Atributos</button>
+    <button class="tab-btn active" onclick="mudarAba(event, 'aba-principal')">1. Principal & Combate</button>
     <button class="tab-btn tab-magias" onclick="mudarAba(event, 'aba-magias')" style="display:none;">2. Grimório / Magias</button>
     <button class="tab-btn tab-ladrao" onclick="mudarAba(event, 'aba-ladrao')" style="display:none;">2. Perícias de Ladrão</button>
-    <button class="tab-btn tab-afugentar" onclick="mudarAba(event, 'aba-afugentar')" style="display:none;">3. Afugentar Mortos-Vivos</button>
+    <button class="tab-btn tab-afugentar" onclick="mudarAba(event, 'aba-afugentar')" style="display:none;">3. Afugentar Mortos</button>
+    <button class="tab-btn" onclick="mudarAba(event, 'aba-thac0')">Tabela THAC0</button>
     <button class="tab-btn" onclick="mudarAba(event, 'aba-notas')">Notas & Equipamento</button>
   </div>
 
@@ -185,13 +183,13 @@
   <div id="aba-principal" class="tab-content active">
     <div class="grid">
       <div><label>Nome</label><input type="text" id="nome"></div>
-      <div><label>Classe</label><input type="text" id="classe_exibida" value="Clérigo" readonly></div>
+      <div><label>Classe</label><input type="text" id="classe_exibida" value="Guerreiro" readonly></div>
       <div><label>Nível</label><input type="number" id="nivel" value="1" onchange="atualizarRegrasClasse()"></div>
       <div><label>Alinhamento</label><input type="text" id="alinhamento"></div>
       <div><label>Jogador</label><input type="text" id="jogador"></div>
       <div><label>XP Atual</label><input type="number" id="xp" value="0"></div>
-      <div><label>Próx. Nível</label><input type="number" id="prox_xp" value="1500"></div>
-      <div><label id="lbl-bonus">Atrib. Primário / XP</label><input type="text" id="bonus_xp" value="Sabedoria"></div>
+      <div><label>Próx. Nível</label><input type="number" id="prox_xp" value="2000"></div>
+      <div><label id="lbl-bonus">Atrib. Primário / XP</label><input type="text" id="bonus_xp" value="Força"></div>
     </div>
 
     <div class="two-col">
@@ -213,18 +211,18 @@
         <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom:10px;">
           <div><label>PV Atual</label><input type="number" id="pv_atual"></div>
           <div><label>PV Máx</label><input type="number" id="pv_max"></div>
-          <div><label>CA</label><input type="number" id="ca" value="9"></div>
-          <div><label>THAC0</label><input type="number" id="thac0" value="19"></div>
+          <div><label>CA</label><input type="number" id="ca" value="5"></div>
+          <div><label>THAC0 (Automático)</label><input type="number" id="thac0" value="19" readonly style="background:#e8e0d0; font-weight:bold;"></div>
           <div><label>Mov. Turno</label><input type="text" id="mov_t" value="120'"></div>
           <div><label>Mov. Combate</label><input type="text" id="mov_c" value="40'"></div>
         </div>
         <table>
           <tr><th>Jogada de Salvaguarda</th><th>Alvo</th></tr>
-          <tr><td>Raio da Morte / Veneno</td><td><input type="number" class="stat-input" id="sv_morte" value="11"></td></tr>
-          <tr><td>Varinhas Mágicas</td><td><input type="number" class="stat-input" id="sv_varinha" value="12"></td></tr>
+          <tr><td>Raio da Morte / Veneno</td><td><input type="number" class="stat-input" id="sv_morte" value="12"></td></tr>
+          <tr><td>Varinhas Mágicas</td><td><input type="number" class="stat-input" id="sv_varinha" value="13"></td></tr>
           <tr><td>Paralisia / Petrificação</td><td><input type="number" class="stat-input" id="sv_paralisia" value="14"></td></tr>
-          <tr><td>Sopro de Dragão</td><td><input type="number" class="stat-input" id="sv_sopro" value="16"></td></tr>
-          <tr><td>Bastões, Cajados e Magias</td><td><input type="number" class="stat-input" id="sv_magia" value="15"></td></tr>
+          <tr><td>Sopro de Dragão</td><td><input type="number" class="stat-input" id="sv_sopro" value="15"></td></tr>
+          <tr><td>Bastões, Cajados e Magias</td><td><input type="number" class="stat-input" id="sv_magia" value="16"></td></tr>
         </table>
       </div>
     </div>
@@ -239,7 +237,7 @@
     </div>
   </div>
 
-  <!-- ABA 2: MAGIAS (Clérigo, Mago, Elfo) -->
+  <!-- ABA 2: MAGIAS -->
   <div id="aba-magias" class="tab-content">
     <div class="box">
       <h2 id="titulo-magias">Magias Conhecidas / Por Dia</h2>
@@ -271,10 +269,10 @@
     </div>
   </div>
 
-  <!-- ABA 3: AFUGENTAR MORTOS-VIVOS (Clérigo) -->
+  <!-- ABA 3: AFUGENTAR MORTOS-VIVOS -->
   <div id="aba-afugentar" class="tab-content">
     <div class="box">
-      <h2>Tabela de Afugentar Mortos-Vivos (Rolagem de 2d6)</h2>
+      <h2>Tabela de Afugentar Mortos-Vivos (2d6)</h2>
       <div style="overflow-x: auto;">
         <table>
           <tr><th>Morto-Vivo</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9-10</th><th>11-12</th></tr>
@@ -284,155 +282,4 @@
           <tr><td>Wight</td><td>—</td><td>11</td><td>9</td><td>7</td><td>T</td><td>T</td><td>D</td><td>D</td><td>D</td><td>D</td></tr>
           <tr><td>Wraith</td><td>—</td><td>—</td><td>11</td><td>9</td><td>7</td><td>T</td><td>T</td><td>D</td><td>D</td><td>D</td></tr>
           <tr><td>Múmia</td><td>—</td><td>—</td><td>—</td><td>11</td><td>9</td><td>7</td><td>T</td><td>T</td><td>D</td><td>D</td></tr>
-          <tr><td>Espectro</td><td>—</td><td>—</td><td>—</td><td>—</td><td>11</td><td>9</td><td>7</td><td>T</td><td>T</td><td>D</td></tr>
-          <tr><td>Vampiro</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>11</td><td>9</td><td>7</td><td>T</td><td>T</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ABA NOTAS & EQUIPAMENTO -->
-  <div id="aba-notas" class="tab-content">
-    <div class="two-col">
-      <div class="box">
-        <h2>Equipamento & Tesouro (cn)</h2>
-        <textarea id="equipamento" placeholder="Armaduras, armas e itens..."></textarea>
-        <div class="grid" style="grid-template-columns: repeat(5, 1fr); margin-top:8px;">
-          <div><label>PL</label><input type="number" id="pl" value="0"></div>
-          <div><label>PO</label><input type="number" id="po" value="0"></div>
-          <div><label>PE</label><input type="number" id="pe" value="0"></div>
-          <div><label>PP</label><input type="number" id="pp" value="0"></div>
-          <div><label>PC</label><input type="number" id="pc" value="0"></div>
-        </div>
-      </div>
-      <div class="box">
-        <h2>Habilidades Especiais & Notas</h2>
-        <textarea id="habilidades_extras" style="min-height: 150px;" placeholder="Infravisão, bônus raciais, divindade ou histórico..."></textarea>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  // Tabelas de Magias por Nível (Clérigo e Mago)
-  const magiasClerigo = {
-    1: ["—","—","—","—","—","—","—"], 2: ["1","—","—","—","—","—","—"], 3: ["2","—","—","—","—","—","—"],
-    4: ["2","1","—","—","—","—","—"], 5: ["2","2","—","—","—","—","—"], 6: ["2","2","1","—","—","—","—"],
-    7: ["3","2","2","—","—","—","—"], 8: ["3","3","2","1","—","—","—"], 9: ["3","3","3","2","—","—","—"],
-    10:["4","4","3","2","1","—","—"]
-  };
-  const magiasMago = {
-    1: ["1","—","—","—","—","—","—"], 2: ["2","—","—","—","—","—","—"], 3: ["2","1","—","—","—","—","—"],
-    4: ["2","2","—","—","—","—","—"], 5: ["2","2","1","—","—","—","—"], 6: ["2","2","2","—","—","—","—"],
-    7: ["3","2","2","1","—","—","—"], 8: ["3","3","2","2","—","—","—"], 9: ["3","3","3","2","1","—","—"],
-    10:["3","3","3","3","2","—","—"]
-  };
-  const magiasElfo = {
-    1: ["1","—","—","—","—","—","—"], 2: ["2","—","—","—","—","—","—"], 3: ["2","1","—","—","—","—","—"],
-    4: ["2","2","—","—","—","—","—"], 5: ["2","2","1","—","—","—","—"], 6: ["2","2","2","—","—","—","—"],
-    7: ["3","2","2","1","—","—","—"], 8: ["3","3","2","2","—","—","—"], 9: ["3","3","3","2","1","—","—"],
-    10:["3","3","3","3","2","—","—"]
-  };
-
-  function mudarClasse() {
-    const tipo = document.getElementById('seletor-classe').value;
-    document.getElementById('classe_exibida').value = document.getElementById('seletor-classe').selectedOptions[0].text;
-    
-    // Ocultar/Exibir Abas Específicas
-    document.querySelector('.tab-magias').style.display = 'none';
-    document.querySelector('.tab-ladrao').style.display = 'none';
-    document.querySelector('.tab-afugentar').style.display = 'none';
-
-    if (tipo === 'clerigo') {
-      document.querySelector('.tab-magias').style.display = 'block';
-      document.querySelector('.tab-afugentar').style.display = 'block';
-      document.getElementById('titulo-magias').innerText = "Magias Divinas por Dia";
-      document.getElementById('lbl-bonus').innerText = "Atrib. Primário: Sabedoria";
-    } else if (tipo === 'mago') {
-      document.querySelector('.tab-magias').style.display = 'block';
-      document.getElementById('titulo-magias').innerText = "Grimório de Magias Arcanas";
-      document.getElementById('lbl-bonus').innerText = "Atrib. Primário: Inteligência";
-    } else if (tipo === 'elfo') {
-      document.querySelector('.tab-magias').style.display = 'block';
-      document.getElementById('titulo-magias').innerText = "Magias Arcanas do Elfo";
-      document.getElementById('lbl-bonus').innerText = "Primários: Força & Inteligência";
-    } else if (tipo === 'ladrao') {
-      document.querySelector('.tab-ladrao').style.display = 'block';
-      document.getElementById('lbl-bonus').innerText = "Atrib. Primário: Destreza";
-    } else if (tipo === 'guerreiro') {
-      document.getElementById('lbl-bonus').innerText = "Atrib. Primário: Força";
-    } else if (tipo === 'anao') {
-      document.getElementById('lbl-bonus').innerText = "Primário: Força (Min. CON 9)";
-    } else if (tipo === 'halfling') {
-      document.getElementById('lbl-bonus').innerText = "Primários: Força & Destreza";
-    }
-    atualizarRegrasClasse();
-  }
-
-  function atualizarRegrasClasse() {
-    const tipo = document.getElementById('seletor-classe').value;
-    const nivel = parseInt(document.getElementById('nivel').value) || 1;
-
-    if (tipo === 'clerigo' && magiasClerigo[nivel]) {
-      const s = magiasClerigo[nivel];
-      for(let i=1; i<=7; i++) document.getElementById('m_slot'+i).value = s[i-1];
-    } else if (tipo === 'mago' && magiasMago[nivel]) {
-      const s = magiasMago[nivel];
-      for(let i=1; i<=7; i++) document.getElementById('m_slot'+i).value = s[i-1];
-    } else if (tipo === 'elfo' && magiasElfo[nivel]) {
-      const s = magiasElfo[nivel];
-      for(let i=1; i<=7; i++) document.getElementById('m_slot'+i).value = s[i-1];
-    }
-  }
-
-  function mudarAba(evt, idAba) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    document.getElementById(idAba).classList.add('active');
-    evt.currentTarget.classList.add('active');
-  }
-
-  const campos = document.querySelectorAll('input, textarea');
-  window.onload = () => {
-    campos.forEach(campo => {
-      if (campo.id && localStorage.getItem('becmi_' + campo.id)) {
-        campo.value = localStorage.getItem('becmi_' + campo.id);
-      }
-      campo.addEventListener('input', () => {
-        if (campo.id) localStorage.setItem('becmi_' + campo.id, campo.value);
-        if (campo.id === 'nivel') atualizarRegrasClasse();
-      });
-    });
-    mudarClasse();
-  };
-
-  function exportarJSON() {
-    const dados = {};
-    campos.forEach(c => { if (c.id) dados[c.id] = c.value; });
-    const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = (dados.nome || 'ficha-becmi') + '.json';
-    a.click();
-  }
-
-  function importarJSON(event) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const dados = JSON.parse(e.target.result);
-      Object.keys(dados).forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.value = dados[id];
-          localStorage.setItem('becmi_' + id, dados[id]);
-        }
-      });
-      atualizarRegrasClasse();
-    };
-    reader.readAsText(event.target.files[0]);
-  }
-</script>
-</body>
-</html>
+          <tr><td>Espectro</td><td>—</td><td>—</td><td>—</td><td>—</td>
