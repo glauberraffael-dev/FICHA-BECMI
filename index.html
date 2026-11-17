@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha D&D BECMI</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --paper: #fffdf9;
+      --ink: #1e1b18;
+      --accent: #8b1e1e;
+      --border: #3a322d;
+    }
+    * { box-sizing: border-box; font-family: 'Georgia', serif; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
+      padding: 20px;
+    }
+    .toolbar {
+      max-width: 900px;
+      margin: 0 auto 15px auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+      font-family: sans-serif;
+      font-size: 0.85rem;
+    }
+    button:hover { opacity: 0.9; }
+    button.secondary { background: #4a423d; }
+
+    .sheet {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 3px solid var(--border);
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    header {
+      text-align: center;
+      border-bottom: 3px double var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      margin: 0;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 1.8rem;
+    }
+    .grid { display: grid; gap: 15px; margin-bottom: 20px; }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-2 { grid-template-columns: 1fr 1fr; }
+    .cols-attr { grid-template-columns: 120px 1fr; }
+
+    .box {
+      border: 1.5px solid var(--border);
+      padding: 10px;
+      background: #fff;
+    }
+    .box h2 {
+      margin: -10px -10px 10px -10px;
+      background: var(--border);
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 3px;
+      font-family: sans-serif;
+    }
+    input[type="text"], input[type="number"], textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #999;
+      background: transparent;
+      font-size: 1rem;
+      padding: 3px 2px;
+      color: var(--ink);
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-bottom: 2px solid var(--accent);
+      background: #fdf8f0;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { border: 1px solid #ccc; padding: 5px; text-align: center; }
+    th { background: #eee6d8; font-size: 0.75rem; text-transform: uppercase; }
+    td input { border: none; text-align: center; }
+    td.left input { text-align: left; }
+
+    @media (max-width: 700px) {
+      .cols-4, .cols-3, .cols-2, .cols-attr { grid-template-columns: 1fr; }
+    }
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; padding: 0; }
+      .sheet { box-shadow: none; border: 2px solid #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button onclick="exportJSON()">💾 Baixar Backup (.json)</button>
+    <button class="secondary" onclick="document.getElementById('importFile').click()">📂 Carregar Backup</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button class="secondary" onclick="window.print()">🖨️ Imprimir / PDF</button>
+    <button class="secondary" onclick="clearSheet()">🗑️ Limpar</button>
+  </div>
+
+  <div class="sheet" id="sheetForm">
+    <header>
+      <h1>Dungeons & Dragons — BECMI</h1>
+      <small>Ficha de Personagem Clássica (Salvamento Automático no Navegador)</small>
+    </header>
+
+    <!-- Cabeçalho do Personagem -->
+    <div class="grid cols-4">
+      <div class="box"><label>Nome do Personagem</label><input type="text" data-field="nome"></div>
+      <div class="box"><label>Classe</label><input type="text" data-field="classe"></div>
+      <div class="box"><label>Nível</label><input type="number" data-field="nivel" value="1"></div>
+      <div class="box"><label>Alinhamento</label><input type="text" data-field="alinhamento"></div>
+    </div>
+
+    <div class="grid cols-4">
+      <div class="box"><label>Jogador</label><input type="text" data-field="jogador"></div>
+      <div class="box"><label>XP Atual</label><input type="number" data-field="xp_atual" value="0"></div>
+      <div class="box"><label>XP Próximo Nível</label><input type="number" data-field="xp_prox" value="2000"></div>
+      <div class="box"><label>Bônus XP (%)</label><input type="text" data-field="xp_bonus" value="+0%"></div>
+    </div>
+
+    <!-- Atributos e Combate -->
+    <div class="grid cols-2">
+      <div class="box">
+        <h2>Atributos</h2>
+        <table>
+          <thead>
+            <tr><th>Atributo</th><th>Valor</th><th>Mod.</th><th>Notas</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>FOR</strong></td><td><input type="number" data-field="for_val"></td><td><input type="text" data-field="for_mod"></td><td class="left"><input type="text" data-field="for_nota" placeholder="Abrir portas..."></td></tr>
+            <tr><td><strong>INT</strong></td><td><input type="number" data-field="int_val"></td><td><input type="text" data-field="int_mod"></td><td class="left"><input type="text" data-field="int_nota" placeholder="Idiomas..."></td></tr>
+            <tr><td><strong>SAB</strong></td><td><input type="number" data-field="sab_val"></td><td><input type="text" data-field="sab_mod"></td><td class="left"><input type="text" data-field="sab_nota" placeholder="Save Magia..."></td></tr>
+            <tr><td><strong>DES</strong></td><td><input type="number" data-field="des_val"></td><td><input type="text" data-field="des_mod"></td><td class="left"><input type="text" data-field="des_nota" placeholder="CA / Iniciativa"></td></tr>
+            <tr><td><strong>CON</strong></td><td><input type="number" data-field="con_val"></td><td><input type="text" data-field="con_mod"></td><td class="left"><input type="text" data-field="con_nota" placeholder="PV / Dado"></td></tr>
+            <tr><td><strong>CAR</strong></td><td><input type="number" data-field="car_val"></td><td><input type="text" data-field="car_mod"></td><td class="left"><input type="text" data-field="car_nota" placeholder="Reação / Moral"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box">
+        <h2>Combate & Salvaguardas</h2>
+        <div class="grid cols-3" style="margin-bottom: 10px;">
+          <div><label>PV Atual / Máx</label><input type="text" data-field="pv" placeholder="8 / 8"></div>
+          <div><label>CA (Descendente)</label><input type="number" data-field="ca" value="9"></div>
+          <div><label>THAC0</label><input type="number" data-field="thaco" value="19"></div>
+        </div>
+        <div class="grid cols-2" style="margin-bottom: 10px;">
+          <div><label>Movimento (Turno)</label><input type="text" data-field="mov_turno" value="120' (40')"></div>
+          <div><label>Movimento (Combate)</label><input type="text" data-field="mov_combate" value="40' (13')"></div>
+        </div>
+        <table>
+          <thead><tr><th colspan="2">Jogadas de Salvaguarda</th></tr></thead>
+          <tbody>
+            <tr><td style="text-align:left">Raio da Morte / Veneno</td><td width="70"><input type="number" data-field="save_morte"></td></tr>
+            <tr><td style="text-align:left">Varinhas Mágicas</td><td><input type="number" data-field="save_varinha"></td></tr>
+            <tr><td style="text-align:left">Paralisia / Petrificação</td><td><input type="number" data-field="save_paralisia"></td></tr>
+            <tr><td style="text-align:left">Sopro de Dragão</td><td><input type="number" data-field="save_sopro"></td></tr>
+            <tr><td style="text-align:left">Bastões, Cajados e Magias</td><td><input type="number" data-field="save_magia"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Armas -->
+    <div class="box" style="margin-bottom: 20px;">
+      <h2>Armas & Ataques</h2>
+      <table>
+        <thead>
+          <tr><th>Arma</th><th>Bônus Ataque</th><th>Dano</th><th>Alcance</th><th>Observações</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="left"><input type="text" data-field="arma1_nome"></td><td><input type="text" data-field="arma1_atk"></td><td><input type="text" data-field="arma1_dano"></td><td><input type="text" data-field="arma1_alc"></td><td class="left"><input type="text" data-field="arma1_obs"></td></tr>
+          <tr><td class="left"><input type="text" data-field="arma2_nome"></td><td><input type="text" data-field="arma2_atk"></td><td><input type="text" data-field="arma2_dano"></td><td><input type="text" data-field="arma2_alc"></td><td class="left"><input type="text" data-field="arma2_obs"></td></tr>
+          <tr><td class="left"><input type="text" data-field="arma3_nome"></td><td><input type="text" data-field="arma3_atk"></td><td><input type="text" data-field="arma3_dano"></td><td><input type="text" data-field="arma3_alc"></td><td class="left"><input type="text" data-field="arma3_obs"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Equipamento e Habilidades -->
+    <div class="grid cols-2">
+      <div class="box">
+        <h2>Equipamento & Carga (cn)</h2>
+        <textarea rows="8" data-field="equipamento" placeholder="Ex: Cota de Malha (400 cn), Espada Longa (60 cn)..."></textarea>
+        <div class="grid cols-2" style="margin-top: 10px; margin-bottom: 0;">
+          <div><label>Carga Total (cn)</label><input type="text" data-field="carga_total"></div>
+          <div><label>Moedas (PL / PO / PE / PP / PC)</label><input type="text" data-field="moedas" placeholder="0 / 25 / 0 / 10 / 0"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Habilidades, Magias & Notas</h2>
+        <textarea rows="10" data-field="habilidades" placeholder="Idiomas, habilidades de classe, magias memorizadas e histórico..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'dnd_becmi_sheet_v1';
+    const fields = document.querySelectorAll('[data-field]');
+
+    // Carregar dados salvos ao abrir
+    function loadSheet() {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      fields.forEach(el => {
+        if (saved[el.dataset.field] !== undefined) {
+          el.value = saved[el.dataset.field];
+        }
+      });
+    }
+
+    // Salvar automaticamente ao digitar
+    function saveSheet() {
+      const data = {};
+      fields.forEach(el => data[el.dataset.field] = el.value);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    fields.forEach(el => el.addEventListener('input', saveSheet));
+
+    // Exportar JSON
+    function exportJSON() {
+      saveSheet();
+      const data = localStorage.getItem(STORAGE_KEY);
+      const nome = document.querySelector('[data-field="nome"]').value || 'personagem-becmi';
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${nome.toLowerCase().replace(/\s+/g, '-')}.json`;
+      a.click();
+    }
+
+    // Importar JSON
+    function importJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        localStorage.setItem(STORAGE_KEY, e.target.result);
+        loadSheet();
+      };
+      reader.readAsText(file);
+    }
+
+    // Limpar Ficha
+    function clearSheet() {
+      if (confirm('Tem certeza que deseja apagar todos os campos da ficha?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        fields.forEach(el => el.value = '');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadSheet);
+  </script>
+</body>
+</html>
