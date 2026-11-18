@@ -79,6 +79,7 @@
     <button class="tab-btn" data-aba="aba-ladrao" data-classes="ladrao" onclick="mudarAba('aba-ladrao')">Perícias de Ladrão</button>
     <button class="tab-btn" data-aba="aba-afugentar" data-classes="clerigo" onclick="mudarAba('aba-afugentar')">Afugentar Mortos-Vivos</button>
     <button class="tab-btn" data-aba="aba-thac0" onclick="mudarAba('aba-thac0')">Tabela de Ataque</button>
+    <button class="tab-btn" data-aba="aba-maestria" onclick="mudarAba('aba-maestria')">Maestria de Armas</button>
     <button class="tab-btn" data-aba="aba-itens" onclick="mudarAba('aba-itens')">Itens Mágicos</button>
     <button class="tab-btn" data-aba="aba-notas" onclick="mudarAba('aba-notas')">Notas &amp; Equipamento</button>
   </div>
@@ -156,14 +157,15 @@
       <h2>Armas &amp; Ataques</h2>
       <div style="overflow-x:auto;">
       <table>
-        <tr><th>Arma</th><th>Tipo</th><th>Mág.</th><th>Dano (dados)</th><th>Ataque</th><th>Dano final</th><th>Alcance</th><th>Notas</th></tr>
-        <tr><td><input type="text" id="w1"></td><td><select id="w1_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w1_mag" value="0"></td><td><input type="text" id="w1_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w1_b" readonly></td><td><input type="text" id="w1_df" readonly></td><td><input type="text" id="w1_a"></td><td><input type="text" id="w1_n"></td></tr>
-        <tr><td><input type="text" id="w2"></td><td><select id="w2_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w2_mag" value="0"></td><td><input type="text" id="w2_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w2_b" readonly></td><td><input type="text" id="w2_df" readonly></td><td><input type="text" id="w2_a"></td><td><input type="text" id="w2_n"></td></tr>
-        <tr><td><input type="text" id="w3"></td><td><select id="w3_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w3_mag" value="0"></td><td><input type="text" id="w3_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w3_b" readonly></td><td><input type="text" id="w3_df" readonly></td><td><input type="text" id="w3_a"></td><td><input type="text" id="w3_n"></td></tr>
-        <tr><td><input type="text" id="w4"></td><td><select id="w4_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w4_mag" value="0"></td><td><input type="text" id="w4_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w4_b" readonly></td><td><input type="text" id="w4_df" readonly></td><td><input type="text" id="w4_a"></td><td><input type="text" id="w4_n"></td></tr>
+        <tr><th>Arma</th><th>Tipo</th><th>Mág.</th><th>Maestria</th><th>Alvo</th><th>Dano (dados)</th><th>Ataque</th><th>Dano final</th><th>Alcance</th><th>Notas</th></tr>
+        <tr><td><input type="text" id="w1" list="lista-maestria"></td><td><select id="w1_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w1_mag" value="0"></td><td class="efeito" id="w1_m">—</td><td><select id="w1_v"><option value="prim">Primário</option><option value="sec">Secundário</option></select></td><td><input type="text" id="w1_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w1_b" readonly></td><td><input type="text" id="w1_df" readonly></td><td><input type="text" id="w1_a"></td><td><input type="text" id="w1_n"></td></tr>
+        <tr><td><input type="text" id="w2" list="lista-maestria"></td><td><select id="w2_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w2_mag" value="0"></td><td class="efeito" id="w2_m">—</td><td><select id="w2_v"><option value="prim">Primário</option><option value="sec">Secundário</option></select></td><td><input type="text" id="w2_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w2_b" readonly></td><td><input type="text" id="w2_df" readonly></td><td><input type="text" id="w2_a"></td><td><input type="text" id="w2_n"></td></tr>
+        <tr><td><input type="text" id="w3" list="lista-maestria"></td><td><select id="w3_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w3_mag" value="0"></td><td class="efeito" id="w3_m">—</td><td><select id="w3_v"><option value="prim">Primário</option><option value="sec">Secundário</option></select></td><td><input type="text" id="w3_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w3_b" readonly></td><td><input type="text" id="w3_df" readonly></td><td><input type="text" id="w3_a"></td><td><input type="text" id="w3_n"></td></tr>
+        <tr><td><input type="text" id="w4" list="lista-maestria"></td><td><select id="w4_t"><option value="corpo">Corpo a corpo</option><option value="arremesso">Arremesso</option><option value="projetil">Projétil</option></select></td><td><input type="number" class="stat-input" id="w4_mag" value="0"></td><td class="efeito" id="w4_m">—</td><td><select id="w4_v"><option value="prim">Primário</option><option value="sec">Secundário</option></select></td><td><input type="text" id="w4_d" placeholder="1d8"></td><td><input type="text" class="stat-input" id="w4_b" readonly></td><td><input type="text" id="w4_df" readonly></td><td><input type="text" id="w4_a"></td><td><input type="text" id="w4_n"></td></tr>
       </table>
       </div>
-      <p class="nota">Ataque e dano somam sozinhos FOR (corpo a corpo; dano também em arremesso), DES (ataque em arremesso e projétil), o bônus mágico da arma e os bônus gerais dos itens equipados. A tabela de ataque da classe dá o número no d20 que você precisa; some o bônus por cima do dado.</p>
+      <datalist id="lista-maestria"></datalist>
+      <p class="nota">Maestria (opcional): se a arma tiver o mesmo nome de uma linha da aba Maestria de Armas, o bônus de ataque do grau entra sozinho; "Alvo" escolhe o bônus contra oponente primário ou secundário da arma. Ataque e dano somam sozinhos FOR (corpo a corpo; dano também em arremesso), DES (ataque em arremesso e projétil), o bônus mágico da arma e os bônus gerais dos itens equipados. A tabela de ataque da classe dá o número no d20 que você precisa; some o bônus por cima do dado.</p>
     </div>
   </div>
 
@@ -221,6 +223,98 @@
     </div>
   </div>
 
+  <!-- MAESTRIA DE ARMAS -->
+  <div id="aba-maestria" class="tab-content">
+    <div class="box">
+      <h2>Weapon Mastery (regra opcional — RC, cap. 5)</h2>
+      <label><input type="checkbox" id="usar_maestria"> Usar as regras de Weapon Mastery nesta campanha</label>
+      <p class="nota" id="maestria_resumo"></p>
+      <p class="aviso" id="maestria_aviso"></p>
+      <div style="overflow-x:auto;">
+      <table>
+        <tr><th>Arma</th><th>Grau</th><th>Prim.</th><th>Ataque (prim./sec.)</th><th>Desespero</th><th>Alcance</th><th>Dano</th><th>Defesa</th><th>Efeitos especiais</th></tr>
+        <tr><td><input type="text" id="mw1_nome" list="lista-maestria"></td><td><select id="mw1_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw1_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw1_atq">—</td><td class="efeito" id="mw1_desp">—</td><td><input type="text" id="mw1_alc" style="min-width:80px"></td><td><input type="text" id="mw1_dano" style="min-width:110px"></td><td><input type="text" id="mw1_def" style="min-width:80px"></td><td><input type="text" id="mw1_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw2_nome" list="lista-maestria"></td><td><select id="mw2_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw2_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw2_atq">—</td><td class="efeito" id="mw2_desp">—</td><td><input type="text" id="mw2_alc" style="min-width:80px"></td><td><input type="text" id="mw2_dano" style="min-width:110px"></td><td><input type="text" id="mw2_def" style="min-width:80px"></td><td><input type="text" id="mw2_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw3_nome" list="lista-maestria"></td><td><select id="mw3_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw3_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw3_atq">—</td><td class="efeito" id="mw3_desp">—</td><td><input type="text" id="mw3_alc" style="min-width:80px"></td><td><input type="text" id="mw3_dano" style="min-width:110px"></td><td><input type="text" id="mw3_def" style="min-width:80px"></td><td><input type="text" id="mw3_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw4_nome" list="lista-maestria"></td><td><select id="mw4_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw4_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw4_atq">—</td><td class="efeito" id="mw4_desp">—</td><td><input type="text" id="mw4_alc" style="min-width:80px"></td><td><input type="text" id="mw4_dano" style="min-width:110px"></td><td><input type="text" id="mw4_def" style="min-width:80px"></td><td><input type="text" id="mw4_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw5_nome" list="lista-maestria"></td><td><select id="mw5_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw5_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw5_atq">—</td><td class="efeito" id="mw5_desp">—</td><td><input type="text" id="mw5_alc" style="min-width:80px"></td><td><input type="text" id="mw5_dano" style="min-width:110px"></td><td><input type="text" id="mw5_def" style="min-width:80px"></td><td><input type="text" id="mw5_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw6_nome" list="lista-maestria"></td><td><select id="mw6_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw6_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw6_atq">—</td><td class="efeito" id="mw6_desp">—</td><td><input type="text" id="mw6_alc" style="min-width:80px"></td><td><input type="text" id="mw6_dano" style="min-width:110px"></td><td><input type="text" id="mw6_def" style="min-width:80px"></td><td><input type="text" id="mw6_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw7_nome" list="lista-maestria"></td><td><select id="mw7_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw7_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw7_atq">—</td><td class="efeito" id="mw7_desp">—</td><td><input type="text" id="mw7_alc" style="min-width:80px"></td><td><input type="text" id="mw7_dano" style="min-width:110px"></td><td><input type="text" id="mw7_def" style="min-width:80px"></td><td><input type="text" id="mw7_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw8_nome" list="lista-maestria"></td><td><select id="mw8_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw8_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw8_atq">—</td><td class="efeito" id="mw8_desp">—</td><td><input type="text" id="mw8_alc" style="min-width:80px"></td><td><input type="text" id="mw8_dano" style="min-width:110px"></td><td><input type="text" id="mw8_def" style="min-width:80px"></td><td><input type="text" id="mw8_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw9_nome" list="lista-maestria"></td><td><select id="mw9_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw9_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw9_atq">—</td><td class="efeito" id="mw9_desp">—</td><td><input type="text" id="mw9_alc" style="min-width:80px"></td><td><input type="text" id="mw9_dano" style="min-width:110px"></td><td><input type="text" id="mw9_def" style="min-width:80px"></td><td><input type="text" id="mw9_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw10_nome" list="lista-maestria"></td><td><select id="mw10_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw10_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw10_atq">—</td><td class="efeito" id="mw10_desp">—</td><td><input type="text" id="mw10_alc" style="min-width:80px"></td><td><input type="text" id="mw10_dano" style="min-width:110px"></td><td><input type="text" id="mw10_def" style="min-width:80px"></td><td><input type="text" id="mw10_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw11_nome" list="lista-maestria"></td><td><select id="mw11_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw11_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw11_atq">—</td><td class="efeito" id="mw11_desp">—</td><td><input type="text" id="mw11_alc" style="min-width:80px"></td><td><input type="text" id="mw11_dano" style="min-width:110px"></td><td><input type="text" id="mw11_def" style="min-width:80px"></td><td><input type="text" id="mw11_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw12_nome" list="lista-maestria"></td><td><select id="mw12_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw12_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw12_atq">—</td><td class="efeito" id="mw12_desp">—</td><td><input type="text" id="mw12_alc" style="min-width:80px"></td><td><input type="text" id="mw12_dano" style="min-width:110px"></td><td><input type="text" id="mw12_def" style="min-width:80px"></td><td><input type="text" id="mw12_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw13_nome" list="lista-maestria"></td><td><select id="mw13_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw13_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw13_atq">—</td><td class="efeito" id="mw13_desp">—</td><td><input type="text" id="mw13_alc" style="min-width:80px"></td><td><input type="text" id="mw13_dano" style="min-width:110px"></td><td><input type="text" id="mw13_def" style="min-width:80px"></td><td><input type="text" id="mw13_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw14_nome" list="lista-maestria"></td><td><select id="mw14_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw14_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw14_atq">—</td><td class="efeito" id="mw14_desp">—</td><td><input type="text" id="mw14_alc" style="min-width:80px"></td><td><input type="text" id="mw14_dano" style="min-width:110px"></td><td><input type="text" id="mw14_def" style="min-width:80px"></td><td><input type="text" id="mw14_esp" style="min-width:160px"></td></tr>
+        <tr><td><input type="text" id="mw15_nome" list="lista-maestria"></td><td><select id="mw15_niv"><option value="">—</option><option value="basico">Básico</option><option value="habil">Habilidoso</option><option value="esp">Especialista</option><option value="mestre">Mestre</option><option value="gm">Grão-Mestre</option></select></td><td><select id="mw15_prim"><option value="">—</option><option value="H">H</option><option value="M">M</option><option value="A">A</option></select></td><td class="efeito" id="mw15_atq">—</td><td class="efeito" id="mw15_desp">—</td><td><input type="text" id="mw15_alc" style="min-width:80px"></td><td><input type="text" id="mw15_dano" style="min-width:110px"></td><td><input type="text" id="mw15_def" style="min-width:80px"></td><td><input type="text" id="mw15_esp" style="min-width:160px"></td></tr>
+      </table>
+      </div>
+      <p class="nota">Cada arma ocupa uma linha, e o grau custa escolhas: Básico 1, Habilidoso 2, Especialista 3, Mestre 4, Grão-Mestre 5. Escolha o nome na lista (português ou inglês) e o grau: alcance, dano, defesa e efeitos vêm da Weapons Mastery Table (pp. 78-79) e ficam bloqueados. Para uma arma que não está na lista, digite os campos à mão. Dano P/S = contra alvo primário/secundário; Defesa X:-nAC/m = bônus de CA n contra m ataques por rodada de oponentes do tipo X (H mão, M míssil/natural, A todos).</p>
+      <p class="nota" id="maestria_infos"></p>
+    </div>
+
+    <details class="box">
+      <summary style="cursor:pointer;font-weight:bold;text-transform:uppercase;font-size:.9rem;">Glossário de efeitos especiais (resumo do livro, pp. 80-81)</summary>
+      <table>
+        <tr><th>Efeito</th><th>O que faz</th></tr>
+        <tr><td>Breaks (quebra)</td><td class="efeito">Escudo-arma: quando o portador ou o inimigo tira exatamente o número necessário para acertar o outro, uma lâmina pode quebrar. Numa rolagem seguinte de 5 ou menos em 1d10, a lâmina quebra.</td></tr>
+        <tr><td>Charge (investida)</td><td class="efeito">Se o portador avança 20 jardas ou mais e acerta, a vítima sofre dano dobrado.</td></tr>
+        <tr><td>Set vs. Charge (fixar)</td><td class="efeito">Ciente de uma investida (inimigo correndo 20 jardas ou mais na rodada), pode fixar a arma. Se acertar o atacante, causa o dobro do dano listado.</td></tr>
+        <tr><td>Deflect (n)</td><td class="efeito">Além dos ataques, pode tentar desviar até n ataques corpo a corpo e arremessos por rodada. Cada desvio exige uma salvaguarda contra Raio da Morte.</td></tr>
+        <tr><td>Delay (atraso)</td><td class="efeito">A vítima atingida faz salvaguarda (contra Paralisia, se não especificado) ou perde a iniciativa na rodada seguinte. À distância, só nos alcances indicados.</td></tr>
+        <tr><td>Disarm (desarmar)</td><td class="efeito">Em vez de um ataque normal, tenta desarmar: precisa acertar, e a vítima segura a arma se tirar um valor menor ou igual à sua Destreza em 1d20 (DES 11 para NPCs e monstros, se o mestre não definir). +5 na rolagem da vítima se o atacante tem a opção de combate Desarmar, e +1 por grau de maestria acima de Básico.</td></tr>
+        <tr><td>Double damage (N)</td><td class="efeito">Nas rolagens naturais indicadas, a arma causa dano dobrado.</td></tr>
+        <tr><td>Entangle (enredar)</td><td class="efeito">A vítima enredada não ataca, não lança magias e não se move. Pode fazer salvaguarda contra Raio da Morte a cada rodada para escapar.</td></tr>
+        <tr><td>Hook (enganchar)</td><td class="efeito">Em vez de um ataque normal, tenta enganchar e derrubar: precisa acertar, causa o dano mínimo da arma, e a vítima faz salvaguarda contra Paralisia ou cai. +4 para atacar um inimigo caído; o caído sofre -4 nas salvaguardas e -2 nos ataques, e levanta em uma rodada.</td></tr>
+        <tr><td>Ignite (incendiar)</td><td class="efeito">Fogo pode incendiar o que for inflamável: 5% (d100) por ponto de dano causado em cada rodada. O item queima por 1d6 rodadas, causando 1d4 por rodada.</td></tr>
+        <tr><td>Knockout (nocaute)</td><td class="efeito">A vítima fica inconsciente por 1d100 rodadas (veja a tabela de efeitos do cassetete, p. 80).</td></tr>
+        <tr><td>No off-hand penalty</td><td class="efeito">Com a regra opcional de Combate com Duas Armas, o cestus não sofre o -4 nem a penalidade de grau de maestria na mão inábil; com dois cestus, ataca com as duas ao mesmo tempo.</td></tr>
+        <tr><td>Second attack / Two attacks</td><td class="efeito">Escudo-arma: faz um segundo ataque (sem penalidade de mão inábil) enquanto ataca com outra arma de uma mão. Escudo com presas faz dois ataques.</td></tr>
+        <tr><td>Skewer (até n DV)</td><td class="efeito">Contra alvo com no máximo n dados de vida, em vez de golpear normalmente o atacante empala: a arma fica presa por 1d4+4 rodadas e a vítima sofre 1d6 de dano automático por rodada.</td></tr>
+        <tr><td>Slow (lentidão)</td><td class="efeito">Movimento e ataques à metade; não pode lançar magias.</td></tr>
+        <tr><td>Strangle (estrangular)</td><td class="efeito">Nas rolagens naturais indicadas, a vítima faz salvaguarda contra Raio da Morte ou fica paralisada e morre em 1d6+2 rodadas se não for socorrida; se escapar, fica paralisada por 2d6 rodadas.</td></tr>
+        <tr><td>Stun (atordoar)</td><td class="efeito">Vítima de tamanho semelhante ou menor falha em salvaguarda contra Raio da Morte: move-se a 1/3, não ataca nem lança magias, CA piora em 2 e salvaguardas -2. Pode salvar a cada rodada para se recuperar. À distância, só nos alcances indicados.</td></tr>
+        <tr><td>(s), (s/m)</td><td class="efeito">Alcance curto, médio ou longo em que o efeito vale; "Stun (s/m)" atordoa nos alcances curto e médio, não no longo.</td></tr>
+        <tr><td>§ (veneno, rede, cassetete, bola, chicote)</td><td class="efeito">Efeitos extras dependem do nível ou DV da vítima, de uma salvaguarda e do grau do atacante. Consulte as Special Effects Tables 1 a 3 na p. 80 do livro.</td></tr>
+        <tr><td>Armas raramente arremessadas</td><td class="efeito">Armas de corpo a corpo da tabela com alcance podem ser arremessadas em graus altos. Ataque normal modificado por FOR (não por DES). O mestre checa surpresa (1-2 em 1d6); se a vítima não estiver surpresa, ela faz salvaguarda contra Raio da Morte para reduzir o dano à metade.</td></tr>
+        <tr><td>Outras armas de haste</td><td class="efeito">Bardiche: Alabarda + desvios do Pique, pode ser fixada. Bill: Machado de haste + gancho da Alabarda. Gisarme: Pique + gancho. Glaive: Machado de haste, dano dobrado como adaga, pode ser fixada. Lochaber: Alabarda, atordoa nos dois maiores graus. Partizan: Pique, desarma, pode ser fixada. Ranseur: Alabarda, desarma de Habilidoso em diante, pode ser fixada. Spetum: Pique, desarma de Habilidoso em diante, pode ser fixada. Spontoon: Lança que não é arremessada, desvios da Alabarda, dano dobrado, pode ser fixada. Voulge: Machado de haste com +2 de dano e desvios da Alabarda, pode ter dano dobrado.</td></tr>
+      </table>
+      <p class="nota">Legenda da tabela: P = alvo primário, S = alvo secundário; H = criaturas que atacam com armas de mão; M = com armas de míssil ou ataques naturais; A = todos; ✱ = arma de corpo a corpo que pode ser arremessada; Nil = dano insignificante; (s/m/l) = curto/médio/longo.</p>
+    </details>
+
+    <div class="box">
+      <h2>Graus de maestria — referência</h2>
+      <div style="overflow-x:auto;">
+      <table>
+        <tr><th>Escolhas gastas</th><th>Grau</th><th>Ataque vs. primário</th><th>Ataque vs. secundário</th><th>Desespero (DV/níveis)</th><th>Treino (semanas)</th><th>Custo por semana (po)</th><th>Custo total (po)</th></tr>
+        <tr><td>0</td><td>Sem treino</td><td>0</td><td>0</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>1</td><td>Básico</td><td>0</td><td>0</td><td>—</td><td>1 (arma nova)</td><td>100</td><td>100</td></tr>
+        <tr><td>2</td><td>Habilidoso</td><td>+2</td><td>+1</td><td>até 4</td><td>2</td><td>250</td><td>500</td></tr>
+        <tr><td>3</td><td>Especialista</td><td>+4</td><td>+2</td><td>até 8</td><td>4</td><td>500</td><td>2.000</td></tr>
+        <tr><td>4</td><td>Mestre</td><td>+6</td><td>+4</td><td>até 12</td><td>8</td><td>750</td><td>6.000</td></tr>
+        <tr><td>5</td><td>Grão-Mestre</td><td>+8</td><td>+6</td><td>até 16</td><td>12</td><td>1.000</td><td>12.000</td></tr>
+      </table>
+      </div>
+      <p class="nota">Sem treino: a arma causa metade do dano (arredonde para baixo) e armas de projétil têm -1 no ataque. Os bônus entram antes dos outros modificadores. Acima do Básico só se avança com um instrutor de grau igual ou maior, um grau por vez.</p>
+      <p class="nota">Desespero: o oponente faz um teste de moral quando o usuário causa dano máximo, desvia todo o dano de uma rodada ou desarma dois ou mais oponentes na mesma rodada. Uma vez por luta, afetando primeiro os mais fracos; o oponente precisa ser mais inteligente que um animal.</p>
+    </div>
+
+    <div class="box">
+      <h2>Chance de sucesso do treino</h2>
+      <table>
+        <tr><th>Conhecimento do aluno</th><th>Instrutor Básico</th><th>Instrutor Habilidoso</th><th>Instrutor Especialista</th><th>Instrutor Mestre</th><th>Instrutor Grão-Mestre</th></tr>
+        <tr><td>Nenhum</td><td>60%</td><td>80%</td><td>95%</td><td>99%</td><td>99%</td></tr>
+        <tr><td>Básico</td><td>1%</td><td>50%</td><td>70%</td><td>90%</td><td>95%</td></tr>
+        <tr><td>Habilidoso</td><td>—</td><td>1%</td><td>40%</td><td>60%</td><td>80%</td></tr>
+        <tr><td>Especialista</td><td>—</td><td>—</td><td>1%</td><td>30%</td><td>50%</td></tr>
+        <tr><td>Mestre</td><td>—</td><td>—</td><td>—</td><td>1%</td><td>20%</td></tr>
+        <tr><td>Grão-Mestre</td><td>—</td><td>—</td><td>—</td><td>—</td><td>1%</td></tr>
+      </table>
+      <p class="nota">A chance é testada na metade do treino. Se falhar e o aluno completar o período, ele pode tentar de novo com outro instrutor com +10%.</p>
+    </div>
+  </div>
+
   <!-- ITENS MÁGICOS -->
   <div id="aba-itens" class="tab-content">
     <div class="box">
@@ -270,6 +364,7 @@
 
 <script>
 const DADOS = {"thief": [[15, 10, 10, 87, 20, 10, 20, 30], [20, 15, 15, 88, 25, 15, 25, 35], [25, 20, 20, 89, 30, 20, 30, 40], [30, 25, 25, 90, 35, 24, 35, 45], [35, 30, 30, 91, 40, 28, 40, 50], [40, 35, 34, 92, 44, 32, 45, 54], [45, 40, 38, 93, 48, 35, 50, 58], [50, 45, 42, 94, 52, 38, 55, 62], [54, 50, 46, 95, 55, 41, 60, 66], [58, 54, 50, 96, 58, 44, 65, 70], [62, 58, 54, 97, 61, 47, 70, 74], [66, 62, 58, 98, 64, 50, 75, 78], [69, 66, 61, 99, 66, 53, 80, 81], [72, 70, 64, 100, 68, 56, 85, 84], [75, 73, 67, 101, 70, 58, 90, 87], [78, 76, 70, 102, 72, 60, 95, 90], [81, 80, 73, 103, 74, 62, 100, 92], [84, 83, 76, 104, 76, 64, 105, 94], [86, 86, 79, 105, 78, 66, 110, 96], [88, 89, 82, 106, 80, 68, 115, 98], [90, 92, 85, 107, 82, 70, 120, 100], [92, 94, 88, 108, 84, 72, 125, 102], [94, 96, 91, 109, 86, 74, 130, 104], [96, 98, 94, 110, 88, 76, 135, 106], [98, 99, 97, 111, 89, 78, 140, 108], [100, 100, 100, 112, 90, 80, 145, 110], [102, 101, 103, 113, 91, 82, 150, 112], [104, 102, 106, 114, 92, 84, 155, 114], [106, 103, 109, 115, 93, 86, 160, 116], [108, 104, 112, 116, 94, 88, 165, 118], [110, 105, 115, 117, 95, 90, 170, 120], [112, 106, 118, 118, 96, 92, 175, 122], [114, 107, 121, 118, 97, 94, 180, 124], [116, 108, 124, 119, 98, 96, 185, 126], [118, 109, 127, 119, 99, 98, 190, 128], [120, 110, 130, 120, 100, 100, 195, 130]], "cleric": [[], [1], [2], [2, 1], [2, 2], [2, 2, 1], [3, 2, 2], [3, 3, 2, 1], [3, 3, 3, 2], [4, 4, 3, 2, 1], [4, 4, 3, 3, 2], [4, 4, 4, 3, 2, 1], [5, 5, 4, 3, 2, 2], [5, 5, 5, 3, 3, 2], [6, 5, 5, 3, 3, 3], [6, 5, 5, 4, 4, 3], [6, 6, 5, 4, 4, 3, 1], [6, 6, 5, 4, 4, 3, 2], [7, 6, 5, 4, 4, 4, 2], [7, 6, 5, 4, 4, 4, 3], [7, 6, 5, 5, 5, 4, 3], [7, 6, 5, 5, 5, 4, 4], [7, 7, 6, 6, 5, 4, 4], [8, 7, 6, 6, 5, 5, 4], [8, 7, 6, 6, 5, 5, 5], [8, 7, 7, 6, 6, 5, 5], [8, 8, 7, 6, 6, 6, 5], [8, 8, 7, 7, 7, 6, 5], [8, 8, 7, 7, 7, 6, 6], [8, 8, 8, 7, 7, 7, 6], [8, 8, 8, 8, 8, 7, 6], [9, 8, 8, 8, 8, 7, 7], [9, 9, 8, 8, 8, 8, 7], [9, 9, 9, 8, 8, 8, 8], [9, 9, 9, 9, 9, 8, 8], [9, 9, 9, 9, 9, 9, 9]], "mago": [[1], [2], [2, 1], [2, 2], [2, 2, 1], [2, 2, 2], [3, 2, 2, 1], [3, 3, 2, 2], [3, 3, 3, 2, 1], [3, 3, 3, 3, 2], [4, 3, 3, 3, 2, 1], [4, 4, 4, 3, 2, 1], [4, 4, 4, 3, 2, 2], [4, 4, 4, 4, 3, 2], [5, 4, 4, 4, 3, 2, 1], [5, 5, 5, 4, 3, 2, 2], [6, 5, 5, 4, 4, 3, 2], [6, 5, 5, 4, 4, 3, 2, 1], [6, 5, 5, 5, 4, 3, 2, 2], [6, 5, 5, 5, 4, 4, 3, 2], [6, 5, 5, 5, 4, 4, 3, 2, 1], [6, 6, 5, 5, 5, 4, 3, 2, 2], [6, 6, 6, 6, 5, 4, 3, 3, 2], [7, 7, 6, 6, 5, 5, 4, 3, 2], [7, 7, 6, 6, 5, 5, 4, 4, 3], [7, 7, 7, 6, 6, 5, 5, 4, 3], [7, 7, 7, 6, 6, 5, 5, 5, 4], [8, 8, 7, 6, 6, 6, 6, 5, 4], [8, 8, 7, 7, 7, 6, 6, 5, 5], [8, 8, 8, 7, 7, 7, 6, 6, 5], [8, 8, 8, 7, 7, 7, 7, 6, 6], [9, 8, 8, 8, 8, 7, 7, 7, 6], [9, 9, 9, 8, 8, 8, 7, 7, 7], [9, 9, 9, 9, 8, 8, 8, 8, 7], [9, 9, 9, 9, 9, 9, 8, 8, 8], [9, 9, 9, 9, 9, 9, 9, 9, 9]]};
+const ARMAS_MAESTRIA = [{"n": "Cassetete (Blackjack)", "p": "H", "c": "5 po", "e": "5 cn", "f": false, "a": false, "r": [["1d2", "—", "§ Knockout"], ["2d2", "—", "§ Knockout (save -1)"], ["1d4+1", "—", "§ Knockout (save -2)"], ["P=1d4+3; S=1d6+1", "—", "§ Knockout (save -3)"], ["P=1d4+5; S=1d6+2", "—", "§ Knockout (save -4)"]], "nt": ""}, {"n": "Cestus", "p": "H", "c": "5 po", "e": "10 cn", "f": false, "a": false, "r": [["1d3", "—", "No off-hand penalty"], ["1d4+1", "—", "No off-hand penalty"], ["2d4", "—", "No off-hand penalty"], ["P=2d4; S=1d4+3", "—", "No off-hand penalty"], ["P=3d4; S=2d4+3", "—", "No off-hand penalty"]], "nt": ""}, {"n": "Alabarda (Halberd)", "p": "H", "c": "7 po", "e": "150 cn", "f": false, "a": false, "r": [["1d10", "—", "Hook + disarm"], ["1d10+2", "H:-1AC/1", "Hook (save -1) + disarm"], ["1d10+5", "H:-2AC/1", "Hook (save -2) + deflect (1) + disarm"], ["P=1d8+10; S=1d8+8", "H:-2AC/2", "Hook (save -3) + deflect (1) + disarm"], ["P=1d6+15; S=1d6+12", "H:-3AC/2", "Hook (save -4) + deflect (2) + disarm"]], "nt": ""}, {"n": "Lança de montaria (Lance)", "p": "M", "c": "10 po", "e": "180 cn", "f": true, "a": false, "r": [["1d10", "—", "Charge"], ["1d10+3", "M:-2AC/1", "Charge"], ["1d10+7", "M:-3AC/1", "Charge"], ["P=1d8+12; S=1d8+10", "M:-3AC/2", "Charge"], ["P=1d8+16; S=1d6+12", "M:-4AC/2", "Charge"]], "nt": ""}, {"n": "Pique (Pike)", "p": "H", "c": "3 po", "e": "80 cn", "f": true, "a": false, "r": [["1d10", "—", "—"], ["1d12+2", "H:-2AC/1", "Deflect (1)"], ["1d12+5", "H:-2AC/2", "Deflect (1)"], ["P=1d12+9; S=1d10+8", "H:-3AC/2", "Deflect (2)"], ["P=1d10+14; S=1d8+10", "H:-3AC/3", "Deflect (2)"]], "nt": ""}, {"n": "Machado de haste (Poleaxe)", "p": "H", "c": "5 po", "e": "120 cn", "f": false, "a": false, "r": [["1d10", "—", "—"], ["1d10+3", "H:-1AC/1", "Deflect (1)"], ["1d10+6", "H:-2AC/1", "Deflect (1)"], ["P=1d10+10; S=1d10+8", "H:-2AC/2", "Deflect (2)"], ["P=1d8+16; S=1d8+12", "H:-3AC/2", "Deflect (2)"]], "nt": ""}, {"n": "Escudo com chifres (Shield, Horned)", "p": "A", "c": "15 po", "e": "20 cn", "f": false, "a": false, "r": [["1d2", "A:-1AC/1", "Second attack"], ["2d2", "A:-1AC/1", "Second attack"], ["1d4+1", "A:-1AC/2", "Second attack"], ["P=1d4+3; S=1d6+1", "A:-1AC/4", "Second attack"], ["P=1d4+5; S=1d6+2", "A:-1AC/6", "Second attack"]], "nt": ""}, {"n": "Escudo-faca (Shield, Knife)", "p": "A", "c": "65 po", "e": "70 cn", "f": false, "a": false, "r": [["1d4+1", "A:-1AC", "Second attack + breaks"], ["1d6+1", "A:-1AC", "Second attack + breaks"], ["2d4+1", "A:-2AC", "Second attack + breaks"], ["P=3d4; S=2d4+2", "A:-2AC", "Second attack + breaks"], ["P=4d4; S=3d4+1", "A:-2AC", "Second attack + breaks"]], "nt": ""}, {"n": "Escudo-espada (Shield, Sword)", "p": "A", "c": "200 po", "e": "185 cn", "f": true, "a": false, "r": [["1d4+2", "A:-1AC/2", "Second attack + breaks"], ["1d6+3", "A:-1AC/2", "Second attack + breaks"], ["1d6+4", "A:-2AC/3", "Second attack + breaks"], ["P=1d6+7; S=1d4+7", "A:-2AC/3", "Second attack + breaks"], ["P=1d6+9; S=1d4+9", "A:-3AC/4", "Second attack + breaks"]], "nt": ""}, {"n": "Escudo com presas (Shield, Tusked)", "p": "A", "c": "200 po", "e": "275 cn", "f": false, "a": false, "r": [["1d4+1", "A:-1AC", "Two attacks + breaks"], ["1d6+2", "A:-2AC", "Two attacks + breaks"], ["2d4+2", "A:-2AC", "Two attacks + breaks"], ["P=2d4+4; S=1d6+5", "A:-3AC", "Two attacks + breaks"], ["P=2d4+6; S=1d8+5", "A:-3AC", "Two attacks + breaks"]], "nt": ""}, {"n": "Bordão (Staff)", "p": "A", "c": "5 po", "e": "40 cn", "f": false, "a": false, "r": [["1d6", "—", "—"], ["1d6+2", "A:-1AC/2", "Deflect (1)"], ["1d8+2", "A:-2AC/2", "Deflect (2)"], ["P=1d8+5; S=1d6+4", "A:-3AC/3", "Deflect (3)"], ["P=1d8+7; S=1d6+7", "A:-4AC/4", "Deflect (4)"]], "nt": ""}, {"n": "Espada de duas mãos (Sword, Two-Handed)", "p": "M", "c": "15 po", "e": "100 cn", "f": false, "a": false, "r": [["1d10", "—", "—"], ["2d6+1", "—", "Stun + deflect (1)"], ["2d8+2", "—", "Stun + deflect (2)"], ["P=3d6+3; S=2d8+3", "—", "Stun + deflect (2)"], ["P=3d6+6; S=3d6+2", "—", "Stun + deflect (3)"]], "nt": ""}, {"n": "Chicote (Whip)", "p": "M", "c": "1 po/pé", "e": "10 cn/pé", "f": false, "a": false, "r": [["1d2", "—", "§ Entangle"], ["1d4", "M:-2AC/2", "§ Entangle (save -1)"], ["1d4+1", "M:-3AC/3", "§ Entangle (save -2)"], ["P=1d4+3; S=1d3+2", "M:-4AC/3", "§ Entangle (save -3)"], ["P=1d4+5; S=1d3+3", "M:-4AC/4", "§ Entangle (save -4)"]], "nt": ""}, {"n": "Machado de batalha (Axe, Battle)", "p": "M", "c": "7 po", "e": "60 cn", "f": false, "a": true, "r": [["—", "1d8", "—", "—"], ["—", "1d8+2", "M:-2AC/2", "Delay"], ["—/5/10", "1d8+4", "M:-3AC/2", "Delay"], ["—/5/10", "P=1d8+8; S=1d8+6 ✱", "M:-3AC/3", "Delay + stun"], ["5/10/15", "P=1d10+10; S=1d8+8 ✱", "M:-4AC/4", "Delay + stun"]], "nt": ""}, {"n": "Clava ou tocha (Club or Torch)", "p": "M", "c": "3 po", "e": "50 cn", "f": false, "a": true, "r": [["—", "1d4", "—", "—"], ["—", "1d6+1", "A:-1AC/2", "Deflect (1)"], ["—/15/25", "1d6+3 ✱", "A:-2AC/2", "Deflect (1)"], ["—/15/25", "P=1d6+5; S=1d4+5 ✱", "A:-3AC/3", "Deflect (2)"], ["10/25/40", "P=1d6+6; S=1d4+6 ✱", "A:-4AC/4", "Deflect (2)"]], "nt": ""}, {"n": "Martelo de guerra (Hammer, War)", "p": "H", "c": "5 po", "e": "50 cn", "f": false, "a": true, "r": [["—", "1d6", "—", "—"], ["—", "1d6+2", "M:-2AC/2", "—"], ["—/10/20", "1d8+2 ✱", "M:-3AC/3", "—"], ["—/10/20", "P=1d8+5; S=1d6+4 ✱", "M:-4AC/3", "—"], ["10/20/30", "P=1d8+7; S=1d6+7 ✱", "M:-5AC/4", "—"]], "nt": ""}, {"n": "Maça (Mace)", "p": "A", "c": "5 po", "e": "30 cn", "f": false, "a": true, "r": [["—", "1d6", "—", "—"], ["—", "2d4", "H:-1AC/1", "—"], ["—/10/20", "2d4+2 ✱", "H:-2AC/2", "—"], ["—/10/20", "2d4+4 ✱", "H:-3AC/3", "—"], ["10/20/30", "2d4+6 ✱", "H:-4AC/3", "—"]], "nt": ""}, {"n": "Espada bastarda, uma mão (Sword, Bastard, 1-Hand)", "p": "H", "c": "15 po", "e": "80 cn", "f": false, "a": true, "r": [["—", "1d6+1", "—", "—"], ["—", "1d6+3", "H:-1AC/1", "—"], ["—", "1d6+5", "H:-2AC/2", "Deflect (1)"], ["—", "P=1d8+8; S=1d6+7", "H:-3AC/2", "Deflect (1)"], ["—", "P=1d8+10; S=1d6+8", "H:-4AC/3", "Deflect (2)"]], "nt": ""}, {"n": "Espada bastarda, duas mãos (Sword, Bastard, 2-Hand)", "p": "H", "c": "15 po", "e": "80 cn", "f": false, "a": true, "r": [["—", "1d8+1", "—", "—"], ["—", "1d8+3", "—", "Deflect (1)"], ["—/—/5", "1d8+5 ✱", "H:-1AC/1", "Deflect (1)"], ["—/—/5", "P=1d10+8; S=1d8+7 ✱", "H:-2AC/2", "Deflect (2)"], ["—/5/10", "P=1d12+10; S=1d10+8 ✱", "H:-3AC/2", "Deflect (3)"]], "nt": ""}, {"n": "Espada normal (Sword, Normal)", "p": "H", "c": "10 po", "e": "60 cn", "f": false, "a": true, "r": [["—", "1d8", "—", "—"], ["—", "1d12", "H:-2AC/1", "Deflect (1) + disarm"], ["—/5/10", "2d8 ✱", "H:-2AC/2", "Deflect (2) + disarm (save +1)"], ["—/5/10", "P=2d8+4; S=2d6+4 ✱", "H:-3AC/3", "Deflect (2) + disarm (save +2)"], ["5/10/15", "P=2d6+8; S=2d4+8 ✱", "H:-4AC/3", "Deflect (3) + disarm (save +4)"]], "nt": "No livro o peso aparece impresso como \"60 gp\" (provável erro de impressão; as demais armas usam cn)."}, {"n": "Espada curta (Sword, Short)", "p": "H", "c": "7 po", "e": "30 cn", "f": false, "a": true, "r": [["—", "1d6", "—", "—"], ["—", "1d6+2", "H:-1AC/1", "Deflect (1) + disarm (save +1)"], ["—/10/20", "1d6+4 ✱", "H:-2AC/2", "Deflect (2) + disarm (save +2)"], ["—/10/20", "P=1d6+7; S=1d4+7 ✱", "H:-2AC/3", "Deflect (3) + disarm (save +4)"], ["10/20/30", "P=1d6+9; S=1d4+9 ✱", "H:-3AC/4", "Deflect (3) + disarm (save +6)"]], "nt": ""}, {"n": "Zarabatana até 60 cm (Blowgun to 2')", "p": "A", "c": "3 po", "e": "6 cn", "f": false, "a": true, "r": [["10/20/30", "Nil", "—", "§ By poison"], ["15/20/30", "Nil", "—", "§ By poison (save -1)"], ["15/25/35", "Nil", "—", "§ By poison (save -2)"], ["20/25/35", "Nil", "—", "§ By poison (save -3)"], ["25/30/40", "Nil", "—", "§ By poison (save -4)"]], "nt": ""}, {"n": "Zarabatana acima de 60 cm (Blowgun over 2')", "p": "A", "c": "6 po", "e": "15 cn", "f": false, "a": true, "r": [["20/25/30", "Nil", "—", "§ By poison"], ["20/25/30", "Nil", "—", "§ By poison (save -1)"], ["25/30/40", "Nil", "—", "§ By poison (save -2)"], ["30/35/40", "Nil", "—", "§ By poison (save -3)"], ["30/40/50", "Nil", "—", "§ By poison (save -4)"]], "nt": ""}, {"n": "Bola (Bola)", "p": "H", "c": "5 po", "e": "5 cn", "f": false, "a": true, "r": [["20/40/60", "1d2", "—", "§ Strangle (20)"], ["25/40/60", "1d3", "H:-1AC/1", "§ Strangle (20) (save -1)"], ["30/50/70", "1d3+1", "H:-2AC/2", "§ Strangle (19-20) (save -2)"], ["35/50/70", "1d3+2", "H:-3AC/3", "§ Strangle (18-20) (P=Save -3) (S=Save -2)"], ["40/60/80", "1d3+3", "H:-4AC/3", "§ Strangle (17-20) (P=Save -4) (S=Save -2)"]], "nt": ""}, {"n": "Arco longo (Bow, Long)", "p": "M", "c": "40 po", "e": "30 cn", "f": false, "a": true, "r": [["70/140/210", "1d6", "—", "—"], ["90/150/220", "1d8+1", "H:-1AC/1", "Delay (s/m)"], ["110/170/230", "1d10+2", "H:-2AC/1", "Delay (s/m)"], ["130/180/240", "P=3d6; S=1d10+4", "H:-2AC/2", "Delay (s/m)"], ["150/200/250", "P=4d4+2; S=1d10+6", "H:-2AC/2", "Delay (s/m)"]], "nt": ""}, {"n": "Arco curto (Bow, Short)", "p": "M", "c": "25 po", "e": "20 cn", "f": false, "a": true, "r": [["50/100/150", "1d6", "—", "—"], ["60/110/160", "1d6+2", "H:-1AC/1", "Delay (s)"], ["80/130/170", "1d6+4", "H:-1AC/2", "Delay (s)"], ["90/130/180", "P=1d8+6; S=1d4+6", "H:-2AC/2", "Delay (s)"], ["110/140/190", "P=1d10+8; S=1d6+7", "H:-2AC/2", "Delay (s)"]], "nt": ""}, {"n": "Besta pesada (Crossbow, Heavy)", "p": "H", "c": "50 po", "e": "80 cn", "f": false, "a": true, "r": [["80/160/240", "2d4", "—", "—"], ["90/160/240", "2d6", "M:-1AC/1", "Stun (s/m)"], ["100/170/240", "2d6+2", "M:-2AC/2", "Stun (s/m)"], ["110/170/240", "P=3d6+2; S=1d12+4", "M:-3AC/2", "Stun (s/m)"], ["120/180/240", "P=4d4+4; S=1d10+6", "M:-3AC/3", "Stun (s/m)"]], "nt": ""}, {"n": "Besta leve (Crossbow, Light)", "p": "H", "c": "30 po", "e": "50 cn", "f": false, "a": true, "r": [["60/120/180", "1d6", "—", "—"], ["60/120/180", "1d6+2", "M:-1AC/1", "Stun (s)"], ["75/130/180", "1d6+4", "M:-2AC/2", "Stun (s)"], ["75/130/180", "P=1d8+6; S=1d4+6", "M:-2AC/3", "Stun (s)"], ["90/140/180", "P=1d6+7; S=2d4+5", "M:-3AC/3", "Stun (s)"]], "nt": ""}, {"n": "Funda (Sling)", "p": "H", "c": "2 po", "e": "20 cn", "f": false, "a": true, "r": [["40/80/160", "1d4", "—", "—"], ["40/80/160", "1d6", "H:-1AC/2", "Stun (s/m)"], ["60/110/170", "2d4", "H:-2AC/3", "Stun (s/m)"], ["60/110/170", "P=3d4; S=1d8+2", "H:-3AC/3", "Stun (s/m)"], ["80/130/180", "P=4d4; S=1d10+2", "H:-4AC/4", "Stun (s/m)"]], "nt": ""}, {"n": "Machado de mão (Axe, Hand)", "p": "M", "c": "4 po", "e": "30 cn", "f": false, "a": true, "r": [["10/20/30", "1d6", "—", "—"], ["15/25/35", "1d6+2", "M:-1AC/1", "—"], ["25/35/45", "1d6+3", "M:-2AC/2", "—"], ["30/40/50", "P=2d4+4; S=1d6+4 ✱", "M:-3AC/3", "—"], ["40/50/60", "P=2d4+7; S=1d6+6 ✱", "M:-3AC/3", "—"]], "nt": ""}, {"n": "Adaga (Dagger)", "p": "H", "c": "3 po", "e": "10 cn", "f": false, "a": true, "r": [["10/20/30", "1d4", "—", "—"], ["15/25/35", "1d6", "H:-1AC/1", "Double damage (20)"], ["20/30/45", "2d4", "H:-2AC/2", "Double damage (19-20)"], ["25/35/50", "P=3d4; S=2d4+2 ✱", "H:-2AC/2", "Double damage (18-20)"], ["30/50/60", "P=4d4; S=3d4+1 ✱", "H:-3AC/3", "Double damage (17-20)"]], "nt": ""}, {"n": "Martelo de arremesso (Hammer, Throwing)", "p": "M", "c": "4 po", "e": "25 cn", "f": false, "a": true, "r": [["10/20/30", "1d4", "—", "—"], ["10/20/30", "1d4+2", "M:-1AC/2", "Stun (s/m)"], ["20/30/45", "1d6+2", "M:-2AC/3", "Stun (s/m)"], ["20/30/45", "P=1d6+4; S=1d4+4 ✱", "M:-3AC/4", "Stun (s/m)"], ["30/50/60", "P=1d6+6; S=1d4+6 ✱", "M:-4AC/5", "Stun (s/m)"]], "nt": ""}, {"n": "Azagaia (Javelin)", "p": "H", "c": "1 po", "e": "20 cn", "f": false, "a": true, "r": [["30/60/90", "1d6", "—", "—"], ["30/60/90", "1d6+2", "—", "—"], ["40/80/120", "1d6+4", "—", "—"], ["40/80/120", "P=1d6+6; S=1d4+6 ✱", "—", "—"], ["50/100/150", "P=1d6+9; S=1d4+8 ✱", "—", "—"]], "nt": ""}, {"n": "Rede (Net)", "p": "M", "c": "1 pp/pé²", "e": "1 cn/pé²", "f": false, "a": true, "r": [["10/20/30", "Nil", "—", "§ Entangle"], ["15/25/35", "Nil", "A:-2AC/1", "§ Entangle (save -1)"], ["20/30/40", "Nil", "A:-4AC/2", "§ Entangle (save -2)"], ["25/35/45", "Nil", "A:-6AC/3", "§ Entangle (P=Save -4) (S=Save -2)"], ["30/40/50", "Nil", "A:-8AC/4", "§ Entangle (P=Save -6) (S=Save -3)"]], "nt": ""}, {"n": "Lança (Spear)", "p": "A", "c": "3 po", "e": "30 cn", "f": true, "a": true, "r": [["20/40/60", "1d6", "—", "Set"], ["20/40/60", "1d6+2", "—", "Set"], ["40/60/75", "2d4+2", "—", "Set + stun"], ["40/60/75", "2d4+4", "—", "Set + stun"], ["60/75/90", "2d4+6", "—", "Set + stun"]], "nt": ""}, {"n": "Objeto arremessado (Tossed Object)", "p": "A", "c": "—", "e": "—", "f": false, "a": true, "r": [["10/30/50", "Pedra 1d3 ✱; Óleo 1d8 ✱; Água benta 1d8 ✱", "—", "Pedra: Stun (s); Óleo: Ignite"], ["10/30/50", "Pedra 1d3 ✱; Óleo 1d8 ✱; Água benta 1d8 ✱", "—", "Pedra: Stun (s); Óleo: Ignite"], ["10/30/50", "Pedra 1d3 ✱; Óleo 1d8 ✱; Água benta 1d8 ✱", "—", "Pedra: Stun (s); Óleo: Ignite"], ["10/30/50", "Pedra 1d3 ✱; Óleo 1d8 ✱; Água benta 1d8 ✱", "—", "Pedra: Stun (s); Óleo: Ignite"], ["10/30/50", "Pedra 1d3 ✱; Óleo 1d8 ✱; Água benta 1d8 ✱", "—", "Pedra: Stun (s); Óleo: Ignite"]], "nt": "No livro só há linha de Básico (não há progressão de maestria); os cinco graus repetem a mesma linha."}, {"n": "Tridente (Trident)", "p": "M", "c": "5 po", "e": "25 cn", "f": false, "a": true, "r": [["10/20/30", "1d6", "—", "—"], ["10/20/30", "1d8+1", "—", "Skewer (up to 4HD)"], ["20/30/45", "1d8+4", "—", "Skewer (up to 7HD)"], ["20/30/45", "P=1d8+6; S=1d6+6 ✱", "—", "Skewer (up to 10HD)"], ["30/45/60", "P=1d6+9; S=1d4+8 ✱", "—", "Skewer (up to 15HD)"]], "nt": ""}];
 
 /* ---------- Tabelas (Rules Cyclopedia) ---------- */
 function linear(base, passo, de, ate) { const a = base.slice(); for (let l = de; l <= ate; l++) a.push(a[a.length - 1] + passo); return a; }
@@ -373,6 +468,43 @@ const ARMADURAS = {
 };
 const RESTRICAO_ARM = { mago:{ arm:['nenhuma'], escudo:false }, ladrao:{ arm:['nenhuma','couro'], escudo:false } };
 
+/* Weapon Mastery (cap. 5) */
+const MAESTRIA = {
+  sem:    { nome:'Sem treino', at:[0,0], dv:0, peso:0 },
+  basico: { nome:'Básico', at:[0,0], dv:0, peso:1 },
+  habil:  { nome:'Habilidoso', at:[2,1], dv:4, peso:2 },
+  esp:    { nome:'Especialista', at:[4,2], dv:8, peso:3 },
+  mestre: { nome:'Mestre', at:[6,4], dv:12, peso:4 },
+  gm:     { nome:'Grão-Mestre', at:[8,6], dv:16, peso:5 }
+};
+const ESCOLHAS_F = [[1,4],[3,5],[6,6],[9,7],[11,8],[15,9],[19,10],[23,11],[27,12],[30,13],[33,14],[36,15]];
+const ESCOLHAS_O = [[1,2],[3,3],[6,4],[9,5],[11,6],[15,7],[19,7],[23,8],[27,8],[30,9],[33,9],[36,10]];
+const NIVEIS_TREINO_DEMI = { anao:[4,8,12], elfo:[4,8], halfling:[4,8] };
+
+const GRAUS = ['basico','habil','esp','mestre','gm'];
+const IDX_ARMAS = {};
+ARMAS_MAESTRIA.forEach(a => {
+  const m = a.n.match(/^(.*?) \((.*)\)$/);
+  [a.n, m && m[1], m && m[2]].filter(Boolean).forEach(k => { IDX_ARMAS[k.toLowerCase()] = a; });
+});
+function buscarArma(nome) { return IDX_ARMAS[(nome || '').trim().toLowerCase()] || null; }
+function dadosArma(a, grau) {
+  const i = Math.max(0, GRAUS.indexOf(grau)), r = a.r[i];
+  return a.a ? { alc:r[0], dmg:r[1], def:r[2], esp:r[3] } : { alc:'', dmg:r[0], def:r[1], esp:r[2] };
+}
+function escolherDano(dmg, alvo) {
+  const mP = dmg.match(/P=([^;]+)/), mS = dmg.match(/S=(.+)$/);
+  if (mP && mS) return (alvo === 'sec' ? mS[1] : mP[1]).replace(' ✱', '').trim();
+  return dmg.replace(' ✱', '').trim();
+}
+function somarDano(dmg, extra) {
+  const m = dmg.match(/^(\d+d\d+)(?:\+(\d+))?$/);
+  if (!m) return dmg + (extra ? (extra > 0 ? '+' : '') + extra : '');
+  const z = (parseInt(m[2]) || 0) + extra;
+  return m[1] + (z ? (z > 0 ? '+' : '') + z : '');
+}
+function travar(ids, travado) { ids.forEach(id => { $(id).readOnly = travado; }); }
+
 /* ---------- Estado ---------- */
 const $ = id => document.getElementById(id);
 const fmt = n => n.toLocaleString('pt-BR');
@@ -397,7 +529,8 @@ function recalcular() {
   const xp = parseInt($('xp').value) || 0;
   const A = modsAtributos(), IT = somaItens();
   calcularCA(tipo, A, IT);
-  atualizarArmas(A, IT);
+  const M = calcularMaestria(tipo, nivel, xp);
+  atualizarArmas(A, IT, M);
 
   // abas por classe
   document.querySelectorAll('[data-classes]').forEach(el => {
@@ -520,15 +653,96 @@ function calcularCA(tipo, A, IT) {
   $('ca_aviso').textContent = av.length ? '⚠ Segundo o livro, ' + NOMES[tipo] + ' não pode usar ' + av.join(' nem ') + ' (confirme com o mestre).' : '';
 }
 
-function atualizarArmas(A, IT) {
+function calcularMaestria(tipo, nivel, xp) {
+  const usar = $('usar_maestria').checked;
+  const demi = !!RANKS[tipo];
+  const mapa = {};
+  let gastos = 0, avisos = [];
+  const lista = [];
+  const infos = [];
+  for (let n = 1; n <= 15; n++) {
+    const nome = $('mw' + n + '_nome').value.trim();
+    const g = $('mw' + n + '_niv').value;
+    const m = MAESTRIA[g];
+    const campos = ['mw' + n + '_alc', 'mw' + n + '_dano', 'mw' + n + '_def', 'mw' + n + '_esp'];
+    const arma = buscarArma(nome);
+    if (nome && !arma) lista.push(nome);
+    if (arma && m) {
+      const d = dadosArma(arma, g);
+      $('mw' + n + '_alc').value = d.alc === '' ? '' : d.alc; $('mw' + n + '_dano').value = d.dmg;
+      $('mw' + n + '_def').value = d.def; $('mw' + n + '_esp').value = d.esp;
+      if ($('mw' + n + '_prim').value !== arma.p) $('mw' + n + '_prim').value = arma.p;
+      travar(campos, true);
+      infos.push(arma.n + ': custo ' + arma.c + ', peso ' + arma.e + (arma.f ? ', pode ser fixada contra investida' : '') + (arma.nt ? '. ' + arma.nt : ''));
+    } else travar(campos, false);
+    if (!m) { $('mw' + n + '_atq').textContent = '—'; $('mw' + n + '_desp').textContent = '—'; continue; }
+    $('mw' + n + '_atq').textContent = sinal(m.at[0]) + ' / ' + sinal(m.at[1]);
+    $('mw' + n + '_desp').textContent = m.dv ? 'até ' + m.dv : '—';
+    gastos += demi ? Math.max(0, m.peso - 1) : m.peso;
+    if (nome) mapa[nome.toLowerCase()] = g;
+    if (arma) { mapa[arma.n.toLowerCase()] = g; const mm = arma.n.match(/^(.*?) \((.*)\)$/); if (mm) { mapa[mm[1].toLowerCase()] = g; mapa[mm[2].toLowerCase()] = g; } }
+    if (!demi && nivel === 1 && m.peso > 1) avisos.push('no 1º nível só é possível Básico (' + (nome || 'linha ' + n) + ')');
+  }
+  $('maestria_infos').textContent = infos.join(' | ');
+  $('lista-maestria').innerHTML = ARMAS_MAESTRIA.map(a => a.n).concat(lista).map(x => '<option value="' + x.replace(/"/g, '&quot;') + '">').join('');
+  let resumo;
+  if (demi) {
+    const marcos = NIVEIS_TREINO_DEMI[tipo];
+    const max = MAXNIVEL[tipo];
+    let op = marcos.filter(l => nivel >= l).length;
+    if (nivel >= max) op += Math.max(0, Math.floor((xp - XP[tipo][max - 1]) / 200000));
+    resumo = NOMES[tipo] + ' não usa escolhas de arma: tem Básico em todas as armas permitidas e treina nos níveis ' + marcos.join(', ') + ' e a cada 200.000 XP depois do nível máximo. Oportunidades de treino liberadas: ' + op + '. Treinos usados (graus acima de Básico): ' + gastos + '.';
+    if (gastos > op) avisos.push('mais treinos do que as oportunidades liberadas');
+  } else if (['guerreiro','clerigo','ladrao','mago'].includes(tipo)) {
+    const tab = tipo === 'guerreiro' ? ESCOLHAS_F : ESCOLHAS_O;
+    let tot = 0; for (const [l, c] of tab) if (nivel >= l) tot = c;
+    if (nivel >= 36) tot += Math.max(0, Math.floor((xp - XP[tipo][35]) / 200000));
+    resumo = 'Escolhas de arma: ' + gastos + ' gastas de ' + tot + ' disponíveis (restam ' + (tot - gastos) + ').';
+    if (gastos > tot) avisos.push('você gastou mais escolhas do que tem');
+  }
+  $('maestria_resumo').textContent = resumo;
+  $('maestria_aviso').textContent = avisos.length ? '⚠ ' + avisos.join('; ') + '.' : '';
+  return { usar, demi, mapa };
+}
+
+function atualizarArmas(A, IT, M) {
   for (let n = 1; n <= 4; n++) {
     const t = $('w' + n + '_t').value, mag = num('w' + n + '_mag');
     const forca = A.for || 0, destreza = A.des || 0;
-    const atk = (t === 'corpo' ? forca : destreza) + mag + IT.at;
+    const nome = $('w' + n).value.trim().toLowerCase();
+    const arma = buscarArma(nome);
+    let bonusM = 0, semTreino = false, rotulo = '—', grau = null;
+    if (M.usar) {
+      const g = nome && M.mapa[nome] ? M.mapa[nome] : (M.demi ? 'basico' : 'sem');
+      const m = MAESTRIA[g];
+      grau = g;
+      bonusM = $('w' + n + '_v').value === 'sec' ? m.at[1] : m.at[0];
+      semTreino = g === 'sem';
+      rotulo = m.nome + (bonusM ? ' (' + sinal(bonusM) + ')' : '');
+      if (semTreino && t === 'projetil') { bonusM -= 1; rotulo += ' (-1)'; }
+    }
+    $('w' + n + '_m').textContent = rotulo;
+    const atk = (t === 'corpo' ? forca : destreza) + mag + IT.at + bonusM;
     const extra = (t === 'projetil' ? 0 : forca) + mag + IT.dn;
     $('w' + n + '_b').value = sinal(atk);
-    const dados = $('w' + n + '_d').value.trim();
-    $('w' + n + '_df').value = dados ? dados + (extra ? (extra > 0 ? '+' : '') + extra : '') : (extra ? sinal(extra) : '');
+    const camposArma = ['w' + n + '_d', 'w' + n + '_a', 'w' + n + '_n'];
+    let dados = '';
+    if (M.usar && arma) {
+      const d = dadosArma(arma, semTreino ? 'basico' : grau);
+      dados = escolherDano(d.dmg, $('w' + n + '_v').value);
+      $('w' + n + '_d').value = dados;
+      $('w' + n + '_a').value = d.alc === '—' ? '' : d.alc;
+      $('w' + n + '_n').value = [d.def !== '—' ? 'Def ' + d.def : '', d.esp !== '—' ? d.esp : ''].filter(Boolean).join('; ');
+      travar(camposArma, true);
+    } else {
+      travar(camposArma, false);
+      dados = $('w' + n + '_d').value.trim();
+    }
+    let final;
+    if (!dados) final = extra ? sinal(extra) : '';
+    else if (semTreino) final = '½(' + dados + ')' + (extra ? (extra > 0 ? '+' : '') + extra : '');
+    else final = somarDano(dados, extra);
+    $('w' + n + '_df').value = final;
   }
 }
 
